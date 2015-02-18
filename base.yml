@@ -1,3 +1,2 @@
 ---
-- hosts: localhost
-  connection: local
+- hosts: localhost # hostname
