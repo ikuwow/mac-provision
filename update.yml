@@ -1,0 +1,18 @@
+---
+- hosts: localhost 
+  sudo: no
+  tasks:
+
+    - name: brew upgrade
+      homebrew: update_homebrew=yes upgrade_all=yes
+
+    - name: brew cask update
+      command: "brew cask update"
+
+    - name: gem update
+      shell: "gem update"
+
+    - name: vagrant plugin update
+      shell: "vagrant plugin update"
+
+
