@@ -91,25 +91,23 @@
           - rbenv
 
     # Install Ruby
-    - name: Check Ruby version
-      shell: "ruby -v | grep {{ruby_version}}"
-      ignore_errors: true
-      register: is_correct_version
-
     - name: Check installed Ruby version
-      shell: "rbenv versions | grep {{ruby_version}}"
+      shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
       ignore_errors: true
       register: ruby_is_installed 
-      when: is_correct_version|failed
 
     - name: Install Ruby
       shell: "rbenv install {{ruby_version}}"
-      when: ruby_is_installed|failed
+      when: ruby_is_installed.stdout != '0'
+
+    # Switch Ruby version
+    - name: Check Ruby version
+      shell: "ruby -v | grep {{ruby_version}} > /dev/null ; echo $?"
+      register: is_correct_version
 
     - name: Switch Ruby version
       shell: "rbenv global {{ruby_version}} && rbenv rehash"
-      when: is_correct_version|failed
-
+      when: is_correct_version.stdout != '0'
 
     - name: Install Gems
       gem: name={{item}} user_install=false
