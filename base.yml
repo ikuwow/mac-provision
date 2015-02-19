@@ -19,6 +19,8 @@
 
     - name: Install GUI Applications
       homebrew_cask: name={{item}}
+      environment:
+        HOMEBREW_CASK_OPTS: "--appdir=/Applications"
       with_items:
           - dropbox
           - owncloud
