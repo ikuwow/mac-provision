@@ -2,9 +2,10 @@
 - hosts: localhost # hostname
   sudo: no
   vars:
-      ruby_version: "2.1.5"
+      ruby_version: "2.1."
 
   tasks:
+
 
     - name: Taps
       homebrew_tap: tap={{item}}
@@ -127,5 +128,17 @@
           - serverspec
           - cocoapods
           - tw
-        
 
+    - name: Check Installed vagrant plugins
+      shell: "vagrant plugin list | cut -d ' ' -f1"
+      register: installed_vagrant_plugins
+      changed_when: installed_vagrant_plugins.rc != 0
+        
+    - name: Install Vagrant Plugins
+      shell: "vagrant plugin install {{item}}"
+      when: item not in installed_vagrant_plugins
+      with_items:
+          - vagrant-omnibus
+          - vagrant-vbguest
+          - vagrant-cachier
+          - vagrant-vbox-snapshot
