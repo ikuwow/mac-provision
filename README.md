@@ -34,3 +34,9 @@ $ ansible -m setup localhost
 
 Output variables can be used in playbooks.
 
+## Notes
+
+.plist of Application settings are created only after first up!
+
+So we have to up iTerm2 etc. by hand before configure....
+
