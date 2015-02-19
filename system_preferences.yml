@@ -46,8 +46,31 @@
       shell: "defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1"
       when: three_finger_drag.stdout != '0'
 
+    # Finder
+    - name: Check Desktop HardDrives
+      shell: "test `defaults read com.apple.finder ShowHardDrivesOnDesktop` -eq 1; echo $?"
+      register: shdod
+      changed_when: shdod.stdout != '0'
+
+    - name: Show Desktop HardDrives
+      shell: "defaults write com.apple.finder ShowHardDrivesOnDesktop -int 1"
+      when: shdod.stdout != '0'
+      notify: Restart Finder
+
+    - name: Check Show mounted servers
+      shell: "test `defaults read com.apple.finder ShowMountedServersOnDesktop` -eq 1; echo $?"
+      register: smsod
+      changed_when: smsod.stdout != '0'
+
+    - name: Show Mounted Servers
+      shell: "defaults write com.apple.finder ShowMountedServersOnDesktop -int 1"
+      when: smsod.stdout != '0'
+      notify: Restart Finder
+
   handlers:
     - name: Restart Dock
       shell: "killall Dock"
+    - name: Restart Finder
+      shell: "killall Finder"
 
 
