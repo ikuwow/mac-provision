@@ -115,6 +115,8 @@
     - name: Switch Ruby version
       shell: "rbenv global {{ruby_version}} && rbenv rehash"
       when: is_correct_version.stdout != '0'
+      
+    # TODO: ここでrbenvの初期化をする必要がある（シェルの立ち上げ直し）
 
     - name: Install Gems
       gem: name={{item}} user_install=false
@@ -148,13 +150,4 @@
           - vagrant-vbox-snapshot
 
     
-    - name: Check System Languages
-      # not 'command'!
-      shell: "defaults read .GlobalPreferences AppleLanguages -array en ja | tr -d '\n' | tr -d ' '"
-      register: langs
-      changed_when: langs.stdout != '(en,ja)'
-
-    - name: Change System Languages
-      shell: "defaults write .GLobalPreferences AppleLanguages -array en ja"
-      when: langs.stdout != '(en,ja)'
 

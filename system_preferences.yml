@@ -1,0 +1,30 @@
+---
+- hosts: localhost # hostname
+  gather_facts: no
+  sudo: no
+
+  tasks:
+
+    - name: Check System Languages
+      # not 'command'!
+      shell: "defaults read .GlobalPreferences AppleLanguages -array en ja | tr -d '\n' | tr -d ' '"
+      register: langs
+      changed_when: langs.stdout != '(en,ja)'
+
+    - name: Change System Languages
+      shell: "defaults write .GLobalPreferences AppleLanguages -array en ja"
+      when: langs.stdout != '(en,ja)'
+
+    - name: Check Dock 
+      shell: "defaults read com.apple.dock | grep autohide > /dev/null && test `defaults read com.apple.dock autohide` -eq 1; echo $?"
+      register: is_autohide
+      changed_when: is_autohide.stdout != '0'
+
+    - name: Autohide Dock
+      shell:  "defaults write com.apple.dock autohide -int 1"
+      notify: Restart Dock
+      when: is_autohide.stdout != '0'
+
+  handlers:
+    - name: Restart Dock
+      shell: "killall Dock"

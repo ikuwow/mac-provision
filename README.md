@@ -26,4 +26,11 @@ $ ansible localhost -m ping
 $ ansible-playbook base.yml
 ```
 
+### GATHERING FACTS...
+
+```
+$ ansible -m setup localhost
+```
+
+Output variables can be used in playbooks.
 
