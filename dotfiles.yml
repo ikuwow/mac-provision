@@ -7,3 +7,17 @@
       - name: Fetch dotfiles
         git: repo=git@github.com:ikuwow/dotfiles.git
              dest=~/dotfiles version=master # "version" is required
+
+      - name: Allocate dotfiles
+        file: src=~/dotfiles/{{item.src}} dest=~/{{item.dest}} state=link
+        with_items:
+            - { src: 'bashrc', dest: '.bashrc' }
+            - { src: 'bash_profile', dest: '.bash_profile' }
+            - { src: 'vim', dest: '.vim' }
+            - { src: 'vimrc', dest: '.vimrc' }
+            - { src: 'gvimrc', dest: '.gvimrc' }
+            - { src: 'gitignore_global', dest: '.gitignore' }
+            - { src: '.gitconfig', dest: '.gitconfig' }
+            - { src: 'bin', dest: 'bin' }
+
+
