@@ -1,2 +1,10 @@
 ---
 - hosts: localhost # hostname
+  sudo: no
+  tasks:
+    - name: Install Vim
+      homebrew: name=vim state=present
+    - name: Install gcc
+      homebrew: name=gcc state=present
+    - name: Install git
+      homebrew: name=git state=present

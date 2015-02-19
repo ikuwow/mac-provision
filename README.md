@@ -12,13 +12,18 @@ Mainly Ansible usage.
 ### Ping
 
 ```
-ansible localhost -m ping -i hosts
+$ ansible localhost -m ping -i hosts
 ```
 
 If appropriately configured in ansible.cfg:
 ```
-ansible localhost -m ping
+$ ansible localhost -m ping
 ```
 
+### Run playbook
+
+```
+$ ansible-playbook base.yml
+```
 
 
