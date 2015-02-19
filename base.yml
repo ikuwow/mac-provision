@@ -146,3 +146,15 @@
           - vagrant-vbguest
           - vagrant-cachier
           - vagrant-vbox-snapshot
+
+    
+    - name: Check System Languages
+      # not 'command'!
+      shell: "defaults read .GlobalPreferences AppleLanguages -array en ja | tr -d '\n' | tr -d ' '"
+      register: langs
+      changed_when: langs.stdout != '(en,ja)'
+
+    - name: Change System Languages
+      shell: "defaults write .GLobalPreferences AppleLanguages -array en ja"
+      when: langs.stdout != '(en,ja)'
+
