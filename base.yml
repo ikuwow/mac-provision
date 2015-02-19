@@ -1,6 +1,7 @@
 ---
 - hosts: localhost # hostname
   sudo: no
+  gather_facts: no
   vars:
       ruby_version: "2.1.5"
 
@@ -81,6 +82,12 @@
           - awscli
           - ansible
           - postgresql
+
+    - name: Create Path to gcc and g++
+      file: src=/usr/local/bin/{{item}}-4.9 dest=/usr/local/bin/{{item}}
+          state=link
+      with_items: [gcc, g++]
+
 
     - name: Install PHPs
       homebrew: name={{item}}
