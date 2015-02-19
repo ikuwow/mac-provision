@@ -95,6 +95,7 @@
       shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
       ignore_errors: true
       register: ruby_is_installed 
+      changed_when: ruby_is_installed.stdout != '0'
 
     - name: Install Ruby
       shell: "rbenv install {{ruby_version}}"
@@ -104,6 +105,7 @@
     - name: Check Ruby version
       shell: "ruby -v | grep {{ruby_version}} > /dev/null ; echo $?"
       register: is_correct_version
+      changed_when: is_correct_version.stdout != '0'
 
     - name: Switch Ruby version
       shell: "rbenv global {{ruby_version}} && rbenv rehash"
