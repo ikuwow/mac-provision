@@ -14,6 +14,9 @@
           - caskroom/versions
           - homebrew/php
 
+    - name: Install homebrew-cask
+      homebrew: name=brew-cask
+
     - name: Install GUI Applications
       homebrew_cask: name={{item}}
       with_items:
