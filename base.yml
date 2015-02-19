@@ -2,6 +2,12 @@
 - hosts: localhost # hostname
   sudo: no
   tasks:
+    - name: Tap cask
+      homebrew_tap: tap=caskroom/cask state=present
+    - name: Tap cask versions
+      homebrew_tap: tap=caskroom/versions 
+    - name: Tap versions
+      homebrew_tap: tap=homebrew/versions
     - name: Install Vim
       homebrew: name=vim state=present
     - name: Install gcc
