@@ -67,10 +67,23 @@
       when: smsod.stdout != '0'
       notify: Restart Finder
 
+    # Safari
+    - name: Check DownloadsPath
+      shell: "defaults read com.apple.Safari | grep DownloadsPath > /dev/null && test `defaults read com.apple.Safari DownloadsPath` = '~/Desktop'; echo $?"
+      register: dlpwc
+      changed_when: dlpwc.stdout != '0'
+
+    - name: Change DownloadsPath
+      shell: "defaults write com.apple.Safari DownloadsPath -string ~/Desktop && defaults write com.apple.Safari DownloadsPathWasConverted -int 1"
+      when: dlpwc.stdout != '0'
+      notify: Restart Safari
+
   handlers:
     - name: Restart Dock
       shell: "killall Dock"
     - name: Restart Finder
       shell: "killall Finder"
+    - name: Restart Safari
+      shell: "killall Safari && open /Applications/Safari.app"
 
 
