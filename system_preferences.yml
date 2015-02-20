@@ -78,6 +78,17 @@
       when: dlpwc.stdout != '0'
       notify: Restart Safari
 
+    # ShowFullURLInSmartSearchField = 1;
+    - name: Check Display URL
+      shell: "defaults read com.apple.Safari | grep ShowFullURLInSmartSearchField > /dev/null && test `defaults read com.apple.Safari ShowFullURLInSmartSearchField` -eq 1; echo $?"
+      register: sfuissf
+      changed_when: sfuissf.stdout != '0'
+
+    - name: Change Display URL
+      shell: "defaults write com.apple.Safari ShowFullURLInSmartSearchField -int 1"
+      when: sfuissf.stdout != '0'
+      notify: Restart Safari
+
   handlers:
     - name: Restart Dock
       shell: "killall Dock"
