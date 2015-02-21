@@ -97,4 +97,7 @@
     - name: Restart Safari
       shell: "killall Safari && open /Applications/Safari.app"
 
+  # And... please install Safari extensions by hand...
+  # Pocket, Hatena Bookmark, Adblock Plus, 
+
 
