@@ -55,7 +55,7 @@
           - goofy
           - libreoffice
           - kobito
-          - duet
+            # - duet
           - kindle
           - lastfm
           - hipchat
