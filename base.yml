@@ -133,13 +133,13 @@
       with_items:
           - rails
           - bundler
-          - chef
-          - chef-zero
-          - knife-solo
-          - berkshelf
-          - kitchen-vagrant
-          - test-kitchen
-          - knife-solo_data_bag
+          #  - chef
+          #  - chef-zero
+          #  - knife-solo
+          #  - berkshelf
+          #  - kitchen-vagrant
+          #  - test-kitchen
+          #  - knife-solo_data_bag
           - serverspec
           - cocoapods
           - tw
