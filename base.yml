@@ -60,6 +60,7 @@
           - hipchat
           - fluid
           - simple-comic
+          - chefdk
           # - recordit
           # - mactex
 
@@ -133,16 +134,20 @@
       with_items:
           - rails
           - bundler
-          #  - chef
-          #  - chef-zero
-          #  - knife-solo
-          #  - berkshelf
-          #  - kitchen-vagrant
-          #  - test-kitchen
-          #  - knife-solo_data_bag
           - serverspec
           - cocoapods
           - tw
+
+    - name: Uninstall gems
+      gem: name={{item}} user_install=false state=absent
+      with_items:
+          - chef
+          - chef-zero
+          - knife-solo
+          - berkshelf
+          - kitchen-vagrant
+          - test-kitchen
+          - knife-solo_data_bag
 
     # - name: Check Installed vagrant plugins
     #   shell: "vagrant plugin list | cut -d ' ' -f1"
