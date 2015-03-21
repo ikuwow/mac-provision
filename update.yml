@@ -8,6 +8,8 @@
 
     - name: brew cask update
       command: "brew cask update"
+      environment:
+        HOMEBREW_CASK_OPTS: "--appdir=/Applications"
 
     - name: gem update
       shell: "gem update"
