@@ -86,6 +86,7 @@
           - nmap
           - awscli
           - ansible
+          - mysql
           - postgresql
 
     - name: Create Path to gcc and g++
