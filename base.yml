@@ -37,6 +37,7 @@
           - cyberduck
           - virtualbox
           - vagrant
+          - vagrant-manager
           - mysqlworkbench
           - bartender
           - vlc
