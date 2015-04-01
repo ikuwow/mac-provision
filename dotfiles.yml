@@ -5,7 +5,7 @@
   tasks:
       
       - name: Fetch dotfiles
-        git: repo=git@github.com:ikuwow/dotfiles.git
+        git: repo=https://github.com/ikuwow/dotfiles.git
              dest=~/dotfiles version=master # "version" is required
 
       - name: Allocate dotfiles
