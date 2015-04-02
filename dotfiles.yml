@@ -5,8 +5,8 @@
   tasks:
       
       - name: Fetch dotfiles
-        git: repo=https://github.com/ikuwow/dotfiles.git
-             dest=~/dotfiles version=master # "version" is required
+        git: repo=git@github.com:ikuwow/dotfiles.git
+             track_submodules=yes dest=~/dotfiles version=master # "version" is required
 
       - name: Allocate dotfiles
         file: src=~/dotfiles/{{item.src}} dest=~/{{item.dest}} state=link
