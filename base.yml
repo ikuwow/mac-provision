@@ -45,7 +45,6 @@
           - cocoarestclient
           - adobe-air
           - cacoo-ninja
-          - mendeley-desktop
           - github
           - day-o
           - onyx
@@ -58,13 +57,10 @@
           - kobito
           - kindle
           - lastfm
-          - hipchat
           - fluid
           - chefdk
           - alfred
           - fabric
-          # - recordit
-          # - mactex
 
     - name: Install Basic Components
       homebrew: name={{item}} 
