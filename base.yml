@@ -61,6 +61,7 @@
           - chefdk
           - alfred
           - fabric
+          - google-drive
 
     - name: Install Basic Components
       homebrew: name={{item}} 
