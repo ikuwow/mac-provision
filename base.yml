@@ -85,12 +85,12 @@
           - ansible
           - mysql
           - postgresql
+          - node
 
     - name: Create Path to gcc and g++
       file: src=/usr/local/bin/{{item}}-4.9 dest=/usr/local/bin/{{item}}
           state=link
       with_items: [gcc, g++]
-
 
     - name: Install PHPs
       homebrew: name={{item}}
@@ -155,6 +155,11 @@
     #   changed_when: installed_vagrant_plugins.rc != 0
     #   # rc returns exit code
         
+    - name: Install Node related packages
+      npm: name={{item}} global=yes
+      with_items:
+          - jshint
+
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
       changed_when: false
