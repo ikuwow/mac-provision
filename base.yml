@@ -28,9 +28,9 @@
           - iterm2
           - google-japanese-ime
           - bettertouchtool
-          - menumeters 
+          - menumeters
           - karabiner
-          - evernote 
+          - evernote
           - macvim-kaoriya
           - flash
           - java
@@ -125,7 +125,7 @@
     - name: Switch Ruby version
       shell: "rbenv global {{ruby_version}} && rbenv rehash"
       when: is_correct_version.stdout != '0'
-      
+
     # TODO: ここでrbenvの初期化をする必要がある（シェルの立ち上げ直し）
 
     - name: Install Gems
@@ -154,7 +154,7 @@
     #   register: installed_vagrant_plugins
     #   changed_when: installed_vagrant_plugins.rc != 0
     #   # rc returns exit code
-        
+
     - name: Install Node related packages
       npm: name={{item}} global=yes
       with_items:
@@ -195,5 +195,5 @@
     - file: src=~/Library/Mobile\ Documents/com~apple~CloudDocs
             dest=~/iCloud\ Drive/CloudDocs state=link
 
-    
+
 
