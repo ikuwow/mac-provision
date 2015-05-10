@@ -64,7 +64,7 @@
           - google-drive
 
     - name: Install Basic Components
-      homebrew: name={{item}} 
+      homebrew: name={{item}}
       with_items:
           - vim
           - cloog
@@ -101,20 +101,21 @@
 
     - name: Install Rubys
       homebrew: name={{item}}
-      with_items: 
+      with_items:
           - ruby-build
           - rbenv
 
     # Install Ruby
-    - name: Check installed Ruby version
-      shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
-      ignore_errors: true
-      register: ruby_is_installed 
-      changed_when: ruby_is_installed.stdout != '0'
-
+    #
+    #     - name: Check installed Ruby version
+    #       shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
+    #       ignore_errors: true
+    #       register: ruby_is_installed
+    #       changed_when: ruby_is_installed.stdout != '0'
     - name: Install Ruby
       shell: "rbenv install {{ruby_version}}"
-      when: ruby_is_installed.stdout != '0'
+      args:
+        creates: ~/.rbenv/versions/{{ruby_version}}/bin/ruby
 
     # Switch Ruby version
     - name: Check Ruby version
