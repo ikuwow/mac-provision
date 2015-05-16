@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export HOMEBREW_CASK_OPTS=--appdir=/Applications
+
+brew install brew-cask
+
+brew cask update
+
+CASKS="dropbox owncloud google-japanese-ime bettertouchtool menumeters karabiner evernote flash java cyberduck bartender vlc rescuetime adobe-air cacoo-ninja github day-o onyx xquartz firefox google-chrome goofy libreoffice kobito kindle lastfm fluid alfred fabric google-drive"
+
+brew cask install $CASKS
+
+DEVTOOLS="iterm2 macvim-kaoriya virtualbox vagrant vagrant-manager mysqlworkbench \
+chefdk cocoarestclient heroku-toolbelt"
+
+brew cask install $DEVTOOLS
+
