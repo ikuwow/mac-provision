@@ -44,8 +44,13 @@
           - php56-pdo-pgsql
           - ctags
 
+    - name: Check compiler version
+      shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
+      ignore_errors: true
+      register: gcc_destver
+
     - name: Create Path to gcc and g++
-      file: src=/usr/local/bin/{{item}}-4.9 dest=/usr/local/bin/{{item}}
+      file: src=/usr/local/bin/{{item}}-{{gcc_destver.stdout}} dest=/usr/local/bin/{{item}}
           state=link
       with_items: [gcc, g++]
 
