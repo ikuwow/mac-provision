@@ -46,7 +46,7 @@
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
-      ignore_errors: true
+      changed_when: no
       register: gcc_destver
 
     - name: Create Path to gcc and g++
