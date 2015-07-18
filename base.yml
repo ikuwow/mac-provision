@@ -44,7 +44,8 @@
           - php56-pdo-pgsql
           - ctags
           - jq
-          - csshx
+          - highlight
+          # highlight option with azusa: -O rtf -k Monaco -K 18 -s ekvoli
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
@@ -117,6 +118,7 @@
           - kitchen-vagrant
           - test-kitchen
           - knife-solo_data_bag
+          - i2cssh
 
     # - name: Check Installed vagrant plugins
     #   shell: "vagrant plugin list | cut -d ' ' -f1"
