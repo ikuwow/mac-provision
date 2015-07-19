@@ -131,6 +131,7 @@
       with_items:
           - jshint
           - gulp
+          - coffee-script
 
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
