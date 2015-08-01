@@ -41,7 +41,6 @@
           - mysql
           - postgresql
           - node
-          - php56-pdo-pgsql
           - ctags
           - jq
           - highlight
@@ -67,6 +66,7 @@
           - composer
           - php56-mcrypt
           - php56-intl
+          - php56-pdo-pgsql
 
     - name: Install Rubys
       homebrew: name={{item}}
