@@ -40,3 +40,17 @@ Output variables can be used in playbooks.
 
 So we have to up iTerm2 etc. by hand before configure....
 
+
+## Safari Extension
+
+Unfortunately, there's no way to install safari extensions by script.
+
+Please install by your hand.
+
+* Adblock Plus
+* Save to Pocket
+* Evernote Web Clipper
+* Hatena Bookmark
+* Pin It button
+* FormatLink
+* Retab
