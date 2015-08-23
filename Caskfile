@@ -10,8 +10,9 @@ CASKS="dropbox owncloud google-japanese-ime bettertouchtool menumeters karabiner
 
 brew cask install $CASKS
 
-DEVTOOLS="iterm2 macvim-kaoriya virtualbox vagrant vagrant-manager mysqlworkbench \
-chefdk cocoarestclient heroku-toolbelt unity"
+DEVTOOLS="iterm2 macvim-kaoriya virtualbox vagrant vagrant-manager \
+mysqlworkbench chefdk cocoarestclient heroku-toolbelt unity \
+mongohub"
 
 brew cask install $DEVTOOLS
 
