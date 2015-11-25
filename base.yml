@@ -137,6 +137,7 @@
           - jshint
           - gulp
           - coffee-script
+          - elasticsearch-tools
 
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
