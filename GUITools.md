@@ -13,6 +13,7 @@ These apps are to install by your hand.
 
 ## Install by downloading installer
 
+* menumeters
 * Dropbox
 * ownCloud
 * Google Japanese Input
