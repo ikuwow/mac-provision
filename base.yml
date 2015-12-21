@@ -18,9 +18,16 @@
     - name: Install homebrew-cask
       homebrew: name=brew-cask
 
+    - name: Uninstall removed components
+      homebrew: name={{item}} state=absent
+      with_items:
+          - docker
+          - boot2docker
+
     - name: Install Basic Components
       homebrew: name={{item}}
       with_items:
+          - bash-completion
           - vim
           - cloog
           - gcc
@@ -45,8 +52,6 @@
           - jq
           - highlight
           # highlight option with azusa: -O rtf -k Monaco -K 18 -s ekvoli
-          - docker
-          - boot2docker
           - go
           - hugo
 
