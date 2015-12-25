@@ -3,7 +3,7 @@
   sudo: no
   gather_facts: no
   vars:
-      ruby_version: "2.1.5"
+      ruby_version: "2.2.3"
 
   tasks:
 
@@ -54,6 +54,7 @@
           # highlight option with azusa: -O rtf -k Monaco -K 18 -s ekvoli
           - go
           - hugo
+          - cowsay
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
