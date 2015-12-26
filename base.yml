@@ -21,8 +21,8 @@
     - name: Uninstall removed components
       homebrew: name={{item}} state=absent
       with_items:
-          - docker
           - boot2docker
+          - docker
 
     - name: Install Basic Components
       homebrew: name={{item}}
