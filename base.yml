@@ -1,4 +1,6 @@
 ---
+# Before execute this, setup github account (set a public key)
+
 - hosts: localhost # hostname
   sudo: no
   gather_facts: no
@@ -6,6 +8,13 @@
       ruby_version: "2.2.3"
 
   tasks:
+
+    - name: git clone dotfiles
+      git: repo=git@github.com:ikuwow/dotfiles.git version=master dest=~/dotfiles
+    - name: Bootstrap dotfiles
+      shell: "sh ~/dotfiles/make_symlinks.sh"
+      args:
+        creates: ~/.bashrc
 
     - name: Taps
       homebrew_tap: tap={{item}}
@@ -82,7 +91,6 @@
           - rbenv
 
     # Install Ruby
-    #
     - name: Check installed Ruby version
       shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
       ignore_errors: true
