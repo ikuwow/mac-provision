@@ -1,7 +1,7 @@
 ---
 - hosts: localhost # hostname
   gather_facts: no
-  sudo: no
+  become: no
 
   tasks:
 
@@ -17,7 +17,7 @@
       # # when: langs.stdout != '(en,ja)'
 
     # Dock
-    - name: Check Dock 
+    - name: Check Dock
       shell: "defaults read com.apple.dock | grep autohide > /dev/null && test `defaults read com.apple.dock autohide` -eq 1; echo $?"
       register: is_autohide
       changed_when: is_autohide.stdout != '0'
@@ -28,12 +28,12 @@
       when: is_autohide.stdout != '0'
 
     # Trackpad
-    - name: Check Tap to Click 
+    - name: Check Tap to Click
       shell: "test `defaults read com.apple.AppleMultitouchTrackpad Clicking` -eq 1; echo $?"
       register: click_is_active
       changed_when: click_is_active.stdout != '0'
 
-    - name: Enable Tap to Click 
+    - name: Enable Tap to Click
       shell: "defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1"
       when: click_is_active.stdout != '0'
 
@@ -42,7 +42,7 @@
       register: three_finger_drag
       changed_when: three_finger_drag.stdout != '0'
 
-    - name: Enable Tap to Click 
+    - name: Enable Tap to Click
       shell: "defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1"
       when: three_finger_drag.stdout != '0'
 
