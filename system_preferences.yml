@@ -5,88 +5,30 @@
 
   tasks:
 
-      # # System Language
-      # # - name: Check System Languages
-      # # # not 'command'!
-      # # shell: "defaults read .GlobalPreferences AppleLanguages -array en ja | tr -d '\n' | tr -d ' '"
-      # # register: langs
-      # # changed_when: langs.stdout != '(en,ja)'
-
-      # # - name: Change System Languages
-      # # shell: "defaults write .GLobalPreferences AppleLanguages -array en ja"
-      # # when: langs.stdout != '(en,ja)'
-
-    # Dock
-    - name: Check Dock
-      shell: "defaults read com.apple.dock | grep autohide > /dev/null && test `defaults read com.apple.dock autohide` -eq 1; echo $?"
-      register: is_autohide
-      changed_when: is_autohide.stdout != '0'
-
     - name: Autohide Dock
-      shell: "defaults write com.apple.dock autohide -int 1"
-      notify: Restart Dock
-      when: is_autohide.stdout != '0'
-
-    # Trackpad
-    - name: Check Tap to Click
-      shell: "test `defaults read com.apple.AppleMultitouchTrackpad Clicking` -eq 1; echo $?"
-      register: click_is_active
-      changed_when: click_is_active.stdout != '0'
+      osx_defaults: domain=com.apple.dock key=autohide type=int value=1
 
     - name: Enable Tap to Click
-      shell: "defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1"
-      when: click_is_active.stdout != '0'
-
-    - name: Check Three finger drag
-      shell: "test `defaults read com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag` -eq 1; echo $?"
-      register: three_finger_drag
-      changed_when: three_finger_drag.stdout != '0'
-
-    - name: Enable Tap to Click
-      shell: "defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1"
-      when: three_finger_drag.stdout != '0'
-
-    # Finder
-    - name: Check Desktop HardDrives
-      shell: "test `defaults read com.apple.finder ShowHardDrivesOnDesktop` -eq 1; echo $?"
-      register: shdod
-      changed_when: shdod.stdout != '0'
+      osx_defaults: domain=com.apple.AppleMultitouchTrackpad key=Clicking type=int value=1
 
     - name: Show Desktop HardDrives
-      shell: "defaults write com.apple.finder ShowHardDrivesOnDesktop -int 1"
-      when: shdod.stdout != '0'
+      osx_defaults: domain=com.apple.finder key=ShowHardDrivesOnDesktop type=bool value=true
       notify: Restart Finder
-
-    - name: Check Show mounted servers
-      shell: "test `defaults read com.apple.finder ShowMountedServersOnDesktop` -eq 1; echo $?"
-      register: smsod
-      changed_when: smsod.stdout != '0'
 
     - name: Show Mounted Servers
-      shell: "defaults write com.apple.finder ShowMountedServersOnDesktop -int 1"
-      when: smsod.stdout != '0'
+      osx_defaults: domain=com.apple.finder key=ShowMountedServersOnDesktop type=bool value=true
       notify: Restart Finder
 
-    # Safari
-    - name: Check DownloadsPath
-      shell: "defaults read com.apple.Safari | grep DownloadsPath > /dev/null && test `defaults read com.apple.Safari DownloadsPath` = '~/Desktop'; echo $?"
-      register: dlpwc
-      changed_when: dlpwc.stdout != '0'
-
     - name: Change DownloadsPath
-      shell: "defaults write com.apple.Safari DownloadsPath -string ~/Desktop && defaults write com.apple.Safari DownloadsPathWasConverted -int 1"
-      when: dlpwc.stdout != '0'
+      osx_defaults: domain=com.apple.Safari key=DownloadsPath value=~/Desktop
       notify: Restart Safari
 
-    # ShowFullURLInSmartSearchField = 1;
-    - name: Check Display URL
-      shell: "defaults read com.apple.Safari | grep ShowFullURLInSmartSearchField > /dev/null && test `defaults read com.apple.Safari ShowFullURLInSmartSearchField` -eq 1; echo $?"
-      register: sfuissf
-      changed_when: sfuissf.stdout != '0'
-
     - name: Change Display URL
-      shell: "defaults write com.apple.Safari ShowFullURLInSmartSearchField -int 1"
-      when: sfuissf.stdout != '0'
+      osx_defaults: domain=com.apple.Safari key=ShowFullURLInSmartSearchField type=bool value=true state=present
+      notify: Restart Safari
+
+    - name: Enable Debug Menu
+      osx_defaults: domain=com.apple.Safari key=IncludeInternalDebugMenu type=bool value=true state=present
       notify: Restart Safari
 
   handlers:
@@ -95,9 +37,8 @@
     - name: Restart Finder
       shell: "killall Finder"
     - name: Restart Safari
-      shell: "killall Safari && open /Applications/Safari.app"
+      shell: "killall Safari && open /Applications/Safari.app/"
 
   # And... please install Safari extensions by hand...
-  # Pocket, Hatena Bookmark, Adblock Plus, 
-
+  # Pocket, Hatena Bookmark, Adblock Plus, Evernote web clipper, 1password, Format link, etc...
 
