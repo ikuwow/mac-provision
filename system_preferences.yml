@@ -1,5 +1,5 @@
 ---
-- hosts: localhost # hostname
+- hosts: localhost
   gather_facts: no
   become: no
 
@@ -20,7 +20,7 @@
       notify: Restart Finder
 
     - name: Change DownloadsPath
-      osx_defaults: domain=com.apple.Safari key=DownloadsPath value=~/Desktop
+      osx_defaults: domain=com.apple.Safari key=DownloadsPath type=string value={{ lookup('env', 'HOME') }}/Desktop
       notify: Restart Safari
 
     - name: Change Display URL
@@ -30,6 +30,9 @@
     - name: Enable Debug Menu
       osx_defaults: domain=com.apple.Safari key=IncludeInternalDebugMenu type=bool value=true state=present
       notify: Restart Safari
+
+    - name: Clash Report on Notification Center
+      osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
   handlers:
     - name: Restart Dock
