@@ -2,7 +2,7 @@
 # Before execute this, setup github account (set a public key)
 
 - hosts: localhost # hostname
-  sudo: no
+  become: no
   gather_facts: no
   vars:
       ruby_version: "2.2.3"
@@ -170,10 +170,11 @@
       when: item not in vagrant_plugin_list.stdout_lines
 
     - name: Create iCloud Drive Directory
-      file: path=~/iCloud\ Drive state=directory
+      file: path="~/iCloud Drive" state=directory
+
     - name: Create iCloud Drive Symlinks
-      file: src=~/Library/Mobile\ Documents/com~apple~{{item}}/Documents
-            dest=~/iCloud\ Drive/{{item}} state=link
+      file: src="~/Library/Mobile Documents/com~apple~{{item}}/Documents"
+            dest="~/iCloud Drive/{{item}}" state=link
       with_items:
           - Keynote
           - Numbers
@@ -185,8 +186,7 @@
           - QuickTimePlayerX
           - ScriptEditor2
 
-    - file: src=~/Library/Mobile\ Documents/com~apple~CloudDocs
-            dest=~/iCloud\ Drive/CloudDocs state=link
-
+    - file: src="~/Library/Mobile Documents/com~apple~CloudDocs"
+            dest="~/iCloud Drive/CloudDocs" state=link
 
 
