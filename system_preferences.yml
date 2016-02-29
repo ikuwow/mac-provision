@@ -34,6 +34,12 @@
     - name: Clash Report on Notification Center
       osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
+    - name: Check locate command set up
+      command: launchctl
+
+      # - name: Setup locate command
+      # - command: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+
   handlers:
     - name: Restart Dock
       shell: "killall Dock"
