@@ -28,17 +28,20 @@
       notify: Restart Safari
 
     - name: Enable Debug Menu
-      osx_defaults: domain=com.apple.Safari key=IncludeInternalDebugMenu type=string value=1 state=present
+      osx_defaults: domain=com.apple.Safari key=IncludeInternalDebugMenu type=bool value=true state=present
       notify: Restart Safari
 
     - name: Clash Report on Notification Center
       osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
-    - name: Check locate command set up
-      command: launchctl
+    - name: Check locate loaded
+      shell: "launchctl list | grep locate > /dev/null; echo $?"
+      register: locate_is_loaded
+      changed_when: locate_is_loaded.stdout != "0"
 
-      # - name: Setup locate command
-      # - command: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+    - name: Setup locate command
+      shell: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+      when: locate_is_loaded.stdout != "0"
 
   handlers:
     - name: Restart Dock
