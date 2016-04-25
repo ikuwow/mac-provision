@@ -5,8 +5,8 @@
   become: no
   gather_facts: no
   vars:
-      ruby_version: "2.2.3"
-      python_version: "3.5.1"
+      base_ruby_version: "2.2.3"
+      base_python_version: "3.5.1"
 
   tasks:
 

@@ -6,30 +6,23 @@
       - ruby-build
       - rbenv
 
-- name: Check installed Ruby version
-  shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
-  ignore_errors: true
-  register: ruby_is_installed
-  changed_when: ruby_is_installed.stdout != '0'
 - name: Install Ruby
-  shell: "rbenv install {{ruby_version}}"
+  shell: "rbenv install {{base_ruby_version}}"
   args:
-    creates: ~/.rbenv/versions/{{ruby_version}}/bin/ruby
+    creates: ~/.rbenv/versions/{{base_ruby_version}}/bin/ruby
 
-- name: Check Ruby version
-  shell: "ruby -v | grep {{ruby_version}} > /dev/null ; echo $?"
-  register: is_correct_version
-  changed_when: is_correct_version.stdout != '0'
+- name: Is ruby in rbenv?
+  shell: "which ruby | grep .rbenv/shims/ruby > /dev/null; echo $?"
+  register: ruby_is_in_rbenv
+  changed_when: ruby_is_in_rbenv.stdout != '0'
 
 - name: Switch Ruby version
-  shell: "rbenv global {{ruby_version}} && rbenv rehash"
-  when: is_correct_version.stdout != '0'
+  shell: "rbenv global {{base_ruby_version}} && rbenv rehash"
+  when: ruby_is_in_rbenv.stdout != '0'
 
 - name: rbenv init
   shell: 'eval "$(rbenv init -)"'
-  changed_when: is_correct_version.stdout != '0'
-
-# TODO: ここでrbenvの初期化をする必要がある（シェルの立ち上げ直し）
+  changed_when: ruby_is_in_rbenv.stdout != '0'
 
 - name: Install Gems
   gem: name={{item}} user_install=false
