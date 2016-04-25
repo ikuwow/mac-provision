@@ -87,60 +87,8 @@
           - php56-intl
           - php56-pdo-pgsql
 
-    - name: Install Rubys
-      homebrew: name={{item}}
-      with_items:
-          - ruby-build
-          - rbenv
 
-    # Install Ruby
-    - name: Check installed Ruby version
-      shell: "rbenv versions | grep {{ruby_version}} > /dev/null ; echo $?"
-      ignore_errors: true
-      register: ruby_is_installed
-      changed_when: ruby_is_installed.stdout != '0'
-    - name: Install Ruby
-      shell: "rbenv install {{ruby_version}}"
-      args:
-        creates: ~/.rbenv/versions/{{ruby_version}}/bin/ruby
-
-    # Switch Ruby version
-    - name: Check Ruby version
-      shell: "ruby -v | grep {{ruby_version}} > /dev/null ; echo $?"
-      register: is_correct_version
-      changed_when: is_correct_version.stdout != '0'
-
-    - name: Switch Ruby version
-      shell: "rbenv global {{ruby_version}} && rbenv rehash"
-      when: is_correct_version.stdout != '0'
-
-    - name: rbenv init
-      shell: 'eval "$(rbenv init -)"'
-      changed_when: is_correct_version.stdout != '0'
-
-    # TODO: ここでrbenvの初期化をする必要がある（シェルの立ち上げ直し）
-
-    - name: Install Gems
-      gem: name={{item}} user_install=false
-      # user_install=falseで~/.rbenv/...にインストールされる
-      with_items:
-          - rails
-          - bundler
-          - serverspec
-          - cocoapods
-          - tw
-
-    - name: Uninstall gems
-      gem: name={{item}} user_install=false state=absent
-      with_items:
-          - chef
-          - chef-zero
-          - knife-solo
-          - berkshelf
-          - kitchen-vagrant
-          - test-kitchen
-          - knife-solo_data_bag
-          - i2cssh
+    - include: tasks/ruby.yml
 
     # - name: Check Installed vagrant plugins
     #   shell: "vagrant plugin list | cut -d ' ' -f1"
