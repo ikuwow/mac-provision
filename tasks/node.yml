@@ -1,0 +1,13 @@
+---
+
+- name: Install Basic Components
+  homebrew: name=node
+
+- name: Install Node related packages
+  npm: name={{item}} global=yes
+  with_items:
+      - jshint
+      - gulp
+      - coffee-script
+      - elasticsearch-tools
+

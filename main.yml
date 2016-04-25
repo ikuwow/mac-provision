@@ -56,7 +56,6 @@
           - ansible
           - mysql
           - postgresql
-          - node
           - ctags
           - jq
           - highlight
@@ -89,20 +88,13 @@
 
 
     - include: tasks/ruby.yml
+    - include: tasks/node.yml
 
     # - name: Check Installed vagrant plugins
     #   shell: "vagrant plugin list | cut -d ' ' -f1"
     #   register: installed_vagrant_plugins
     #   changed_when: installed_vagrant_plugins.rc != 0
     #   # rc returns exit code
-
-    - name: Install Node related packages
-      npm: name={{item}} global=yes
-      with_items:
-          - jshint
-          - gulp
-          - coffee-script
-          - elasticsearch-tools
 
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
