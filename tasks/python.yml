@@ -1,0 +1,27 @@
+---
+- name: Install basic python packages
+  homebrew: name=pyenv
+
+- name: Check installed Python version
+  shell: "pyenv versions | grep {{python_version}} > /dev/null; echo $?"
+  ignore_errors: true
+  register: python_is_installed
+  changed_when: python_is_installed.stdout != '0'
+
+- name: Install Python
+  shell: "pyenv install {{python_version}}"
+  args:
+    creates: ~/.pyenv/versions/{{python_version}}/bin/python
+
+- name: Check Python version
+  shell: "python --version | grep {{python_version}} > /dev/null; echo $?"
+  register: is_correct_version
+  changed_when: is_correct_version.stdout != '0'
+
+- name: Switch Python version
+  shell: "pyenv global {{python_version}} && pyenv rehash"
+  when: is_correct_version.stdout != '0'
+
+- name: pyenv init
+  shell: 'eval "$(pyenv init -)"'
+  changed_when: is_correct_version.stdout != '0'

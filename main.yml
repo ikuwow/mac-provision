@@ -6,6 +6,7 @@
   gather_facts: no
   vars:
       ruby_version: "2.2.3"
+      python_version: "3.5.1"
 
   tasks:
 
@@ -89,6 +90,7 @@
 
     - include: tasks/ruby.yml
     - include: tasks/node.yml
+    - include: tasks/python.yml
 
     # - name: Check Installed vagrant plugins
     #   shell: "vagrant plugin list | cut -d ' ' -f1"
