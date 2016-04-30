@@ -50,7 +50,7 @@
   changed_when: php_is_in_phpbrew.stdout != '0'
 
 - name: Use php in phpbrew
-  shell: "phpbrew use {{base_php_version}}"
+  shell: "source ~/.phpbrew/bashrc && phpbrew switch {{base_php_version}}"
   when: php_is_in_phpbrew.stdout != '0'
 
 - name: Install composer
