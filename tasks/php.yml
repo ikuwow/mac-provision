@@ -54,6 +54,6 @@
   when: php_is_in_phpbrew.stdout != '0'
 
 - name: Install composer
-  shell: "phpbrew install-composer"
+  shell: "phpbrew app get composer"
   args:
     creates: "~/.phpbrew/bin/composer"
