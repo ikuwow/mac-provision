@@ -5,6 +5,7 @@
   become: no
   gather_facts: no
   vars:
+      base_php_version: "5.6.21"
       base_ruby_version: "2.2.3"
       base_python_version: "3.5.1"
 
@@ -78,25 +79,10 @@
           state=link
       with_items: [gcc, g++]
 
-    - name: Install PHPs
-      homebrew: name={{item}}
-      with_items:
-          - php56
-          - composer
-          - php56-mcrypt
-          - php56-intl
-          - php56-pdo-pgsql
-
-
+    - include: tasks/php.yml
     - include: tasks/ruby.yml
     - include: tasks/node.yml
     - include: tasks/python.yml
-
-    # - name: Check Installed vagrant plugins
-    #   shell: "vagrant plugin list | cut -d ' ' -f1"
-    #   register: installed_vagrant_plugins
-    #   changed_when: installed_vagrant_plugins.rc != 0
-    #   # rc returns exit code
 
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
