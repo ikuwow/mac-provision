@@ -24,7 +24,6 @@
           - homebrew/versions
           - caskroom/cask
           - caskroom/versions
-          - homebrew/php
 
     - name: Install homebrew-cask
       homebrew: name=brew-cask
