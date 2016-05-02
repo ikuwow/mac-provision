@@ -1,0 +1,59 @@
+---
+
+- name: Install taps of php
+  homebrew_tap: tap=homebrew/php
+
+- name: Remove current php packages
+  homebrew: name={{item}} state=absent
+  with_items:
+    - php56
+    - composer
+    - php56-mcrypt
+    - php56-intl
+    - php56-pdo-pgsql
+
+- name: Install required packages
+  homebrew: name={{item}}
+  with_items:
+    - phpbrew
+    - openssl
+    - libxml2
+
+- name: Initlalize phpbrew
+  shell: "phpbrew init"
+  args:
+    creates: ~/.phpbrew
+  # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
+
+- name: Is openssl of homebrew enabled?
+  shell: "[[ `which openssl` = /usr/local/bin/openssl ]]; echo $?"
+  register: brew_openssl_enabled
+  changed_when: brew_openssl_enabled.stdout != '0'
+
+- name: Force link openssl
+  shell: "brew link --force openssl"
+  when: brew_openssl_enabled.stdout != '0'
+
+- name: Force link libxml2
+  shell: "brew link --force libxml2"
+  args:
+    creates: /usr/local/include/libxml2
+
+- name: Install php {{base_php_version}}
+  shell: "phpbrew install {{base_php_version}} +default"
+  args:
+    creates: ~/.phpbrew/php/php-{{base_php_version}}
+
+- name: Is php in phpbrew?
+  shell: "which php | grep phpbrew > /dev/null; echo $?"
+  register: php_is_in_phpbrew
+  changed_when: php_is_in_phpbrew.stdout != '0'
+
+- name: Use php in phpbrew
+  shell: "source ~/.phpbrew/bashrc && phpbrew switch {{base_php_version}}"
+  when: php_is_in_phpbrew.stdout != '0'
+
+- name: Install composer
+  shell: "phpbrew app get composer"
+  args:
+    creates: "~/.phpbrew/bin/composer"
