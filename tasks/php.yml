@@ -4,7 +4,7 @@
   homebrew_tap: tap=homebrew/php
 
 - name: Remove current php packages
-  homebrew: name={{item}} state=absent
+  homebrew: name={{item}} state=absent install_options=force
   with_items:
     - php56
     - composer
