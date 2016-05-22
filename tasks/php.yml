@@ -25,20 +25,6 @@
     creates: ~/.phpbrew
   # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
 
-- name: Is openssl of homebrew enabled?
-  shell: "[[ `which openssl` = /usr/local/bin/openssl ]]; echo $?"
-  register: brew_openssl_enabled
-  changed_when: brew_openssl_enabled.stdout != '0'
-
-- name: Force link openssl
-  shell: "brew link --force openssl"
-  when: brew_openssl_enabled.stdout != '0'
-
-- name: Force link libxml2
-  shell: "brew link --force libxml2"
-  args:
-    creates: /usr/local/include/libxml2
-
 - name: Install php {{base_php_version}}
   shell: "phpbrew install {{base_php_version}} +default"
   args:
