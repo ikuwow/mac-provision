@@ -54,6 +54,7 @@
           - hugo
           - imagemagick
           - jq
+          - libdvdcss # needed by handbrake
           - mysql
           - nkf
           - nmap
