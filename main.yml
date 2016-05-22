@@ -37,37 +37,36 @@
     - name: Install Basic Components
       homebrew: name={{item}}
       with_items:
-          - bash-completion
-          - vim
-          - cloog
-          - gcc
-          - pwgen
-          - tree
-          - git
+          - ansible
+          - awscli
           - bash
-          - trash
-          - wget
-          - imagemagick
-          - ghostscript
           - bash-completion
-          - watch
+          - cloog
+          - cowsay
+          - ctags
+          - fortune
+          - gcc
+          - ghostscript
+          - git
+          - git-secrets
+          - go
+          - highlight
+          - hugo
+          - imagemagick
+          - jq
+          - mysql
           - nkf
           - nmap
-          - awscli
-          - ansible
-          - mysql
           - postgresql
-          - ctags
-          - jq
-          - highlight
-          # highlight option with azusa: -O rtf -k Monaco -K 18 -s ekvoli
-          - go
-          - hugo
-          - cowsay
+          - pwgen
           - sshrc
-          - fortune
           - thefuck
-          - git-secrets
+          - tmux
+          - trash
+          - tree
+          - wget
+          - watch
+          - vim
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
