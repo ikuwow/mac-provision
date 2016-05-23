@@ -9,6 +9,14 @@
       base_ruby_version: "2.2.3"
       base_python_version: "3.5.1"
 
+  handlers:
+    - name: Restart Dock
+      shell: "killall Dock"
+    - name: Restart Finder
+      shell: "killall Finder"
+    - name: Restart Safari
+      shell: "killall Safari && open /Applications/Safari.app/"
+
   tasks:
 
     - name: git clone dotfiles
@@ -119,5 +127,7 @@
 
     - file: src="~/Library/Mobile Documents/com~apple~CloudDocs"
             dest="~/iCloud Drive/CloudDocs" state=link
+
+    - include: tasks/system-preferences.yml
 
 

@@ -1,0 +1,42 @@
+---
+- name: Autohide Dock
+  osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
+
+- name: Enable Tap to Click
+  osx_defaults: domain=com.apple.AppleMultitouchTrackpad key=Clicking type=bool value=true
+
+- name: Show Desktop HardDrives
+  osx_defaults: domain=com.apple.finder key=ShowHardDrivesOnDesktop type=bool value=true
+  notify: Restart Finder
+
+- name: Show Mounted Servers
+  osx_defaults: domain=com.apple.finder key=ShowMountedServersOnDesktop type=bool value=true
+  notify: Restart Finder
+
+- name: Change DownloadsPath
+  osx_defaults: domain=com.apple.Safari key=DownloadsPath type=string value={{ lookup('env', 'HOME') }}/Desktop
+  notify: Restart Safari
+
+- name: Change Display URL
+  osx_defaults: domain=com.apple.Safari key=ShowFullURLInSmartSearchField type=bool value=true state=present
+  notify: Restart Safari
+
+- name: Enable Debug Menu
+  osx_defaults: domain=com.apple.Safari key=IncludeInternalDebugMenu type=bool value=true state=present
+  notify: Restart Safari
+
+- name: Clash Report on Notification Center
+  osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
+
+- name: Check locate loaded
+  shell: "launchctl list | grep locate > /dev/null; echo $?"
+  register: locate_is_loaded
+  changed_when: locate_is_loaded.stdout != "0"
+
+- name: Setup locate command
+  shell: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+  when: locate_is_loaded.stdout != "0"
+
+  # And... please install Safari extensions by hand...
+  # Pocket, Hatena Bookmark, Adblock Plus, Evernote web clipper, 1password, Format link, etc...
+
