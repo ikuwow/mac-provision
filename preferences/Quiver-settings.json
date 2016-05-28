@@ -32,7 +32,7 @@
   "codeCellShowIndentGuides" : 1,
   "codeCellShowLineNumbers" : 1,
   "codeCellTabTriggers" : 1,
-  "codeCellTheme" : "monokai",
-  "markdownCellTheme" : "monokai",
+  "codeCellTheme" : "dawn",
+  "markdownCellTheme" : "textmate",
   "swipeGesture" : 1
 }
