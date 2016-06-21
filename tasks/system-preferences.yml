@@ -28,6 +28,9 @@
 - name: Clash Report on Notification Center
   osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
+- name: Change Screenshot name
+  osx_defaults: domain=com.apple.screencapture key=name value=""
+
 - name: Check locate loaded
   shell: "launchctl list | grep locate > /dev/null; echo $?"
   register: locate_is_loaded
