@@ -26,7 +26,7 @@
   # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
 
 - name: Install php {{base_php_version}}
-  shell: "phpbrew install {{base_php_version}} +default"
+  shell: "phpbrew install {{base_php_version}} +default +openssl=/usr/local/opt/openssl"
   args:
     creates: ~/.phpbrew/php/php-{{base_php_version}}
 
