@@ -1,22 +1,30 @@
 ---
 
-- name: Install basic python packages
-  homebrew: name=pyenv
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+  vars:
+      base_python_version: "3.5.1"
 
-- name: Install Python
-  shell: "pyenv install {{base_python_version}}"
-  args:
-    creates: ~/.pyenv/versions/{{base_python_version}}/bin/python
+  tasks:
 
-- name: Is Python in pyenv?
-  shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
-  register: python_is_in_pyenv
-  changed_when: python_is_in_pyenv.stdout != '0'
+    - name: Install basic python packages
+      homebrew: name=pyenv
 
-- name: Switch Python version
-  shell: "pyenv global {{base_python_version}} && pyenv rehash"
-  when: python_is_in_pyenv.stdout != '0'
+    - name: Install Python
+      shell: "pyenv install {{base_python_version}}"
+      args:
+        creates: ~/.pyenv/versions/{{base_python_version}}/bin/python
 
-- name: pyenv init
-  shell: 'eval "$(pyenv init -)"'
-  changed_when: python_is_in_pyenv.stdout != '0'
+    - name: Is Python in pyenv?
+      shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
+      register: python_is_in_pyenv
+      changed_when: python_is_in_pyenv.stdout != '0'
+
+    - name: Switch Python version
+      shell: "pyenv global {{base_python_version}} && pyenv rehash"
+      when: python_is_in_pyenv.stdout != '0'
+
+    - name: pyenv init
+      shell: 'eval "$(pyenv init -)"'
+      changed_when: python_is_in_pyenv.stdout != '0'

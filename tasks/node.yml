@@ -1,13 +1,19 @@
 ---
 
-- name: Install Basic Components
-  homebrew: name=node
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
 
-- name: Install Node related packages
-  npm: name={{item}} global=yes
-  with_items:
-      - jshint
-      - gulp
-      - coffee-script
-      - elasticsearch-tools
+  tasks:
+
+    - name: Install Basic Components
+      homebrew: name=node
+
+    - name: Install Node related packages
+      npm: name={{item}} global=yes
+      with_items:
+          - jshint
+          - gulp
+          - coffee-script
+          - elasticsearch-tools
 

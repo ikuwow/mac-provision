@@ -1,48 +1,55 @@
 ---
 
-- name: Install Rubys
-  homebrew: name={{item}}
-  with_items:
-      - ruby-build
-      - rbenv
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+  vars:
+      base_ruby_version: "2.2.3"
 
-- name: Install Ruby
-  shell: "rbenv install {{base_ruby_version}}"
-  args:
-    creates: ~/.rbenv/versions/{{base_ruby_version}}/bin/ruby
+  tasks:
+    - name: Install Rubys
+      homebrew: name={{item}}
+      with_items:
+          - ruby-build
+          - rbenv
 
-- name: Is ruby in rbenv?
-  shell: "which ruby | grep .rbenv/shims/ruby > /dev/null; echo $?"
-  register: ruby_is_in_rbenv
-  changed_when: ruby_is_in_rbenv.stdout != '0'
+    - name: Install Ruby
+      shell: "rbenv install {{base_ruby_version}}"
+      args:
+        creates: ~/.rbenv/versions/{{base_ruby_version}}/bin/ruby
 
-- name: Switch Ruby version
-  shell: "rbenv global {{base_ruby_version}} && rbenv rehash"
-  when: ruby_is_in_rbenv.stdout != '0'
+    - name: Is ruby in rbenv?
+      shell: "which ruby | grep .rbenv/shims/ruby > /dev/null; echo $?"
+      register: ruby_is_in_rbenv
+      changed_when: ruby_is_in_rbenv.stdout != '0'
 
-- name: rbenv init
-  shell: 'eval "$(rbenv init -)"'
-  changed_when: ruby_is_in_rbenv.stdout != '0'
+    - name: Switch Ruby version
+      shell: "rbenv global {{base_ruby_version}} && rbenv rehash"
+      when: ruby_is_in_rbenv.stdout != '0'
 
-- name: Install Gems
-  gem: name={{item}} user_install=false
-  # user_install=falseで~/.rbenv/...にインストールされる
-  with_items:
-      - rails
-      - bundler
-      - serverspec
-      - cocoapods
-      - tw
+    - name: rbenv init
+      shell: 'eval "$(rbenv init -)"'
+      changed_when: ruby_is_in_rbenv.stdout != '0'
 
-- name: Uninstall gems
-  gem: name={{item}} user_install=false state=absent
-  with_items:
-      - chef
-      - chef-zero
-      - knife-solo
-      - berkshelf
-      - kitchen-vagrant
-      - test-kitchen
-      - knife-solo_data_bag
-      - i2cssh
+    - name: Install Gems
+      gem: name={{item}} user_install=false
+      # user_install=falseで~/.rbenv/...にインストールされる
+      with_items:
+          - rails
+          - bundler
+          - serverspec
+          - cocoapods
+          - tw
+
+    - name: Uninstall gems
+      gem: name={{item}} user_install=false state=absent
+      with_items:
+          - chef
+          - chef-zero
+          - knife-solo
+          - berkshelf
+          - kitchen-vagrant
+          - test-kitchen
+          - knife-solo_data_bag
+          - i2cssh
 

@@ -4,9 +4,6 @@
 - hosts: localhost # hostname
   become: no
   gather_facts: no
-  vars:
-      base_ruby_version: "2.2.3"
-      base_python_version: "3.5.1"
 
   tasks:
 
@@ -79,10 +76,6 @@
           state=link
       with_items: [gcc, g++]
 
-    - include: tasks/ruby.yml
-    - include: tasks/node.yml
-    - include: tasks/python.yml
-
     - name: List Installed Vagrant Plugins
       shell: "vagrant plugin list | awk '{ print $1 }'"
       changed_when: false
@@ -121,4 +114,7 @@
 
 - include: tasks/system-preferences.yml
 - include: tasks/php.yml
+- include: tasks/ruby.yml
+- include: tasks/python.yml
+- include: tasks/node.yml
 
