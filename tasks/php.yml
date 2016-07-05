@@ -1,45 +1,53 @@
 ---
 
-- name: Install taps of php
-  homebrew_tap: tap=homebrew/php
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+  vars:
+      base_php_version: "5.6.21"
 
-- name: Remove current php packages
-  homebrew: name={{item}} state=absent install_options=force
-  with_items:
-    - php56
-    - composer
-    - php56-mcrypt
-    - php56-intl
-    - php56-pdo-pgsql
+  tasks:
 
-- name: Install required packages
-  homebrew: name={{item}}
-  with_items:
-    - phpbrew
-    - openssl
-    - libxml2
+    - name: Install taps of php
+      homebrew_tap: tap=homebrew/php
 
-- name: Initlalize phpbrew
-  shell: "phpbrew init"
-  args:
-    creates: ~/.phpbrew
-  # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
+    - name: Remove current php packages
+      homebrew: name={{item}} state=absent install_options=force
+      with_items:
+        - php56
+        - composer
+        - php56-mcrypt
+        - php56-intl
+        - php56-pdo-pgsql
 
-- name: Install php {{base_php_version}}
-  shell: "phpbrew install {{base_php_version}} +default +openssl=/usr/local/opt/openssl"
-  args:
-    creates: ~/.phpbrew/php/php-{{base_php_version}}
+    - name: Install required packages
+      homebrew: name={{item}}
+      with_items:
+        - phpbrew
+        - openssl
+        - libxml2
 
-- name: Is php in phpbrew?
-  shell: "which php | grep phpbrew > /dev/null; echo $?"
-  register: php_is_in_phpbrew
-  changed_when: php_is_in_phpbrew.stdout != '0'
+    - name: Initlalize phpbrew
+      shell: "phpbrew init"
+      args:
+        creates: ~/.phpbrew
+      # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
 
-- name: Use php in phpbrew
-  shell: "source ~/.phpbrew/bashrc && phpbrew switch {{base_php_version}}"
-  when: php_is_in_phpbrew.stdout != '0'
+    - name: Install php {{base_php_version}}
+      shell: "phpbrew install {{base_php_version}} +default +openssl=/usr/local/opt/openssl"
+      args:
+        creates: ~/.phpbrew/php/php-{{base_php_version}}
 
-- name: Install composer
-  shell: "phpbrew app get composer"
-  args:
-    creates: "~/.phpbrew/bin/composer"
+    - name: Is php in phpbrew?
+      shell: "which php | grep phpbrew > /dev/null; echo $?"
+      register: php_is_in_phpbrew
+      changed_when: php_is_in_phpbrew.stdout != '0'
+
+    - name: Use php in phpbrew
+      shell: "source ~/.phpbrew/bashrc && phpbrew switch {{base_php_version}}"
+      when: php_is_in_phpbrew.stdout != '0'
+
+    - name: Install composer
+      shell: "phpbrew app get composer"
+      args:
+        creates: "~/.phpbrew/bin/composer"
