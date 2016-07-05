@@ -76,22 +76,6 @@
           state=link
       with_items: [gcc, g++]
 
-    - name: List Installed Vagrant Plugins
-      shell: "vagrant plugin list | awk '{ print $1 }'"
-      changed_when: false
-      register: vagrant_plugin_list
-
-    - name: Install Vagrant Plugins
-      shell: "vagrant plugin install {{item}}"
-      with_items:
-        - vagrant-omnibus
-        - vagrant-vbguest
-        - vagrant-cachier
-        - vagrant-vbox-snapshot
-        - vagrant-aws
-        - vagrant-digitalocean
-      when: item not in vagrant_plugin_list.stdout_lines
-
     - name: Create iCloud Drive Directory
       file: path="~/iCloud Drive" state=directory
 
@@ -117,4 +101,5 @@
 - include: tasks/ruby.yml
 - include: tasks/python.yml
 - include: tasks/node.yml
+- include: tasks/vagrant.yml
 
