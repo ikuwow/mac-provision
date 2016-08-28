@@ -6,7 +6,8 @@
 
   tasks:
 
-
+    - name: Remove homebrew-cask
+      homebrew: name=brew-cask state=absent
 
     - name: brew tap
       homebrew_tap: tap={{item}}
