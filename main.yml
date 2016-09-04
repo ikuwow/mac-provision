@@ -21,9 +21,6 @@
           - caskroom/cask
           - caskroom/versions
 
-    - name: Install homebrew-cask
-      homebrew: name=brew-cask
-
     - name: Uninstall removed components
       homebrew: name={{item}} state=absent
       with_items:
