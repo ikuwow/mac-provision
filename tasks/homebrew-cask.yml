@@ -20,4 +20,6 @@
       with_items:
         - franz
         - gitter
+        - powershell
+
 
