@@ -15,11 +15,7 @@
         creates: ~/.bashrc
 
     - name: Taps
-      homebrew_tap: tap={{item}}
-      with_items:
-          - homebrew/versions
-          - caskroom/cask
-          - caskroom/versions
+      homebrew_tap: tap=homebrew/versions
 
     - name: Uninstall removed components
       homebrew: name={{item}} state=absent
@@ -95,6 +91,7 @@
     - file: src="~/Library/Mobile Documents/com~apple~CloudDocs"
             dest="~/iCloud Drive/CloudDocs" state=link
 
+- include: tasks/homebrew-cask.yml
 - include: tasks/system-preferences.yml
 - include: tasks/php.yml
 - include: tasks/ruby.yml

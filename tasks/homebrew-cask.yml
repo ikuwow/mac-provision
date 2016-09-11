@@ -1,0 +1,25 @@
+---
+
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+
+  tasks:
+
+    - name: Remove homebrew-cask
+      homebrew: name=brew-cask state=absent
+
+    - name: brew tap
+      homebrew_tap: tap={{item}}
+      with_items:
+        - caskroom/cask
+        - caskroom/versions
+
+    - name: Install by .dmg
+      homebrew_cask: name={{item}}
+      with_items:
+        - franz
+        - gitter
+        - powershell
+
+
