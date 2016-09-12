@@ -14,6 +14,10 @@
       args:
         creates: ~/.bashrc
 
+    - name: Set up .macrc
+      file: src="~/mac-provision/.macrc"
+            dest="~/.macrc" state=link
+
     - name: Taps
       homebrew_tap: tap=homebrew/versions
 
