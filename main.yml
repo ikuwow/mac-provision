@@ -98,10 +98,10 @@
             dest="~/iCloud Drive/CloudDocs" state=link
 
 - include: tasks/homebrew-cask.yml
-- include: tasks/system-preferences.yml
 - include: tasks/php.yml
 - include: tasks/ruby.yml
 - include: tasks/python.yml
 - include: tasks/node.yml
 - include: tasks/vagrant.yml
+- include: tasks/system-preferences.yml
 
