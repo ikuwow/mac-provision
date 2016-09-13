@@ -65,6 +65,7 @@
           - gnu-sed
           - gawk
           - heroku
+          - fontforge
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
@@ -97,10 +98,10 @@
             dest="~/iCloud Drive/CloudDocs" state=link
 
 - include: tasks/homebrew-cask.yml
-- include: tasks/system-preferences.yml
 - include: tasks/php.yml
 - include: tasks/ruby.yml
 - include: tasks/python.yml
 - include: tasks/node.yml
 - include: tasks/vagrant.yml
+- include: tasks/system-preferences.yml
 
