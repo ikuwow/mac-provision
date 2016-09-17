@@ -60,12 +60,15 @@
           - tree
           - wget
           - watch
-          - vim
           - translate-shell
           - gnu-sed
           - gawk
           - heroku
           - fontforge
+          - lua
+
+    - name: Install custom vim
+      homebrew: name=vim install_options=with-lua
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
