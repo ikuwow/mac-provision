@@ -12,8 +12,6 @@
       shell: "killall Safari && open /Applications/Safari.app/"
 
   tasks:
-    - name: Autohide Dock
-      osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
 
     - name: Enable Tap to Click
       osx_defaults: domain=com.apple.AppleMultitouchTrackpad key=Clicking type=bool value=true
@@ -44,14 +42,17 @@
     - name: Change Screenshot name
       osx_defaults: domain=com.apple.screencapture key=name value=""
 
-    - name: Check locate loaded
-      shell: "launchctl list | grep locate > /dev/null; echo $?"
-      register: locate_is_loaded
-      changed_when: locate_is_loaded.stdout != "0"
-
-    - name: Setup locate command
-      shell: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
-      when: locate_is_loaded.stdout != "0"
+  # Deprected:
+  #     - name: Autohide Dock
+  #       osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
+  #     - name: Check locate loaded
+  #       shell: "launchctl list | grep locate > /dev/null; echo $?"
+  #       register: locate_is_loaded
+  #       changed_when: locate_is_loaded.stdout != "0"
+  #
+  #     - name: Setup locate command
+  #       shell: launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+  #       when: locate_is_loaded.stdout != "0"
 
   # And... please install Safari extensions by hand...
   # Pocket, Hatena Bookmark, Adblock Plus, Evernote web clipper, 1password, Format link, etc...
