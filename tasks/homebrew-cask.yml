@@ -18,6 +18,7 @@
     - name: Install by .dmg
       homebrew_cask: name={{item}}
       with_items:
+        - xquartz
         - franz
         - gitter
         - powershell
