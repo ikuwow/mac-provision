@@ -25,7 +25,7 @@
       notify: Restart Finder
 
     - name: Change DownloadsPath
-      osx_defaults: domain=com.apple.Safari key=DownloadsPath type=string value={{ lookup('env', 'HOME') }}/Desktop
+      osx_defaults: domain=com.apple.Safari key=DownloadsPath type=string value={{ lookup('env', 'HOME') }}/Downloads
       notify: Restart Safari
 
     - name: Change Display URL
