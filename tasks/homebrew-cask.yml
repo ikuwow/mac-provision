@@ -15,14 +15,19 @@
         - caskroom/cask
         - caskroom/versions
 
-    - name: Install by .dmg
+    - name: Install devtools by .dmg
       homebrew_cask: name={{item}}
       with_items:
         - xquartz
-        - franz
-        - gitter
         - powershell
         - google-cloud-sdk
+
+    - name: Install basics by .dmg
+      homebrew_cask: name={{item}}
+      with_items:
+        - franz
+        - gitter
+        - boostnote
 
     - name: Make kubectl link
       file:
