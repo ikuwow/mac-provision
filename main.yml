@@ -19,13 +19,17 @@
             dest="~/.macrc" state=link
 
     - name: Taps
-      homebrew_tap: tap=homebrew/versions
+      homebrew_tap: tap={{item}}
+      with_items:
+      - universal-ctags/universal-ctags
+      - homebrew/versions
 
     - name: Uninstall removed components
       homebrew: name={{item}} state=absent
       with_items:
           - boot2docker
           - docker
+          - ctags # use universal-ctags
 
     - name: Install Basic Components
       homebrew: name={{item}}
@@ -36,7 +40,6 @@
           - bash-completion
           - cloog
           - cowsay
-          - ctags
           - fortune
           - gcc
           - ghostscript
@@ -66,6 +69,9 @@
           - heroku
           - fontforge
           - lua
+
+    - name: install head-only formulae
+      homebrew: name=universal-ctags state=head
 
     - name: Install custom vim
       homebrew: name=vim install_options=with-lua
