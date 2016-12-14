@@ -1214,6 +1214,8 @@
 	<true/>
 	<key>MaxVertically</key>
 	<true/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/mac-provision</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -1243,12 +1245,27 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>825 99 517 289 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>463 292 606 456 0 0 1440 877 </string>
+	<string>463 379 606 456 0 0 1440 877 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>994 235 400 129 0 0 1440 877 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 364 620 392 0 0 1440 877 </string>
+	<key>NSWindow Frame SharedPreferences</key>
+	<string>420 213 796 473 0 0 1440 877 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>869 13 570 864 0 0 1440 877 </string>
+	<string>0 4 570 864 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>354 9 570 864 0 0 1440 877 </string>
+	<string>353 9 570 864 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2745,16 +2762,34 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>00E1ED39-B0D0-4D5F-A9D6-83C488FECBFF</string>
+	<key>NoSyncLastTipTime</key>
+	<real>492495758.34313399</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>489406248.261792</real>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>477639856.95030898</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>489208333.07814002</real>
+	<key>NoSyncTipsDisabled</key>
+	<true/>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
+		<string>0005</string>
+		<string>0006</string>
+		<string>0007</string>
+	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -2829,7 +2864,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-05T10:07:19Z</date>
+	<date>2016-12-13T08:33:58Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -2839,7 +2874,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
@@ -2892,6 +2927,8 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1474450304</real>
 	<key>URLHandlers</key>
 	<dict/>
 	<key>URLHandlersByGuid</key>
@@ -2917,6 +2954,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.0.4</string>
+	<string>3.0.10</string>
 </dict>
 </plist>
