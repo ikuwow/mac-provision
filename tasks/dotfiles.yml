@@ -1,0 +1,19 @@
+---
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+
+    - name: git clone dotfiles
+      git: repo=git@github.com:ikuwow/dotfiles.git version=master dest=~/dotfiles
+
+    - name: Bootstrap dotfiles
+      shell: "sh ~/dotfiles/make_symlinks.sh"
+      args:
+        creates: ~/.bashrc
+
+    - name: Set up .macrc
+      file: src="~/mac-provision/.macrc"
+            dest="~/.macrc" state=link

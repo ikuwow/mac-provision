@@ -1,0 +1,76 @@
+---
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+
+    - name: Taps
+      homebrew_tap: tap={{item}}
+      with_items:
+      - universal-ctags/universal-ctags
+      - homebrew/versions
+
+    - name: Uninstall removed components
+      homebrew: name={{item}} state=absent
+      with_items:
+          - boot2docker
+          - docker
+          - ctags # use universal-ctags
+
+    - name: Install Basic Components
+      homebrew: name={{item}}
+      with_items:
+          - coreutils
+          - ansible
+          - awscli
+          - bash
+          - bash-completion
+          - cloog
+          - cowsay
+          - fortune
+          - gcc
+          - ghostscript
+          - git
+          - git-secrets
+          - go
+          - highlight
+          - hugo
+          - imagemagick
+          - jq
+          - libdvdcss # needed by handbrake
+          - mysql
+          - nkf
+          - nmap
+          - postgresql
+          - pwgen
+          - sshrc
+          - thefuck
+          - tmux
+          - trash
+          - tree
+          - wget
+          - watch
+          - translate-shell
+          - gnu-sed
+          - gawk
+          - heroku
+          - fontforge
+          - lua
+
+    - name: install head-only formulae
+      homebrew: name=universal-ctags state=head
+
+    - name: Install custom vim
+      homebrew: name=vim install_options=with-lua
+
+    - name: Check compiler version
+      shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
+      changed_when: no
+      register: gcc_destver
+
+    - name: Create Path to gcc and g++
+      file: src=/usr/local/bin/{{item}}-{{gcc_destver.stdout}} dest=/usr/local/bin/{{item}}
+          state=link
+      with_items: [gcc, g++]

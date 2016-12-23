@@ -1,0 +1,28 @@
+---
+
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+
+  tasks:
+
+    - name: Create iCloud Drive Directory
+      file: path="~/iCloud Drive" state=directory
+
+    - name: Create iCloud Drive Symlinks
+      file: src="~/Library/Mobile Documents/com~apple~{{item}}/Documents"
+            dest="~/iCloud Drive/{{item}}" state=link
+      with_items:
+          - Keynote
+          - Numbers
+          - Pages
+          - Automator
+          - Notes
+          - Preview
+          - TextEdit
+          - QuickTimePlayerX
+          - ScriptEditor2
+
+    - file: src="~/Library/Mobile Documents/com~apple~CloudDocs"
+            dest="~/iCloud Drive/CloudDocs" state=link
+
