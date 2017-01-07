@@ -18,6 +18,7 @@
     - name: Install devtools by .dmg
       homebrew_cask: name={{item}}
       with_items:
+        - macvim
         - xquartz
         - powershell
         - google-cloud-sdk
