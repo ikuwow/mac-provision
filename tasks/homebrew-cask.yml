@@ -29,6 +29,7 @@
         - franz
         - gitter
         - boostnote
+        - cmd-eikana
 
     - name: Make kubectl link
       file:
