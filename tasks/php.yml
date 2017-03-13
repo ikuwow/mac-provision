@@ -47,7 +47,9 @@
       shell: "source ~/.phpbrew/bashrc && phpbrew switch {{base_php_version}}"
       when: php_is_in_phpbrew.stdout != '0'
 
-    - name: Install composer
-      shell: "phpbrew app get composer"
+    - name: Install php modules
+      shell: "phpbrew app get {{item}}"
+      with_items:
+          - [composer, phpmd, phpcs]
       args:
-        creates: "~/.phpbrew/bin/composer"
+        creates: "~/.phpbrew/bin/{{item}}"
