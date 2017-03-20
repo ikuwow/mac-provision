@@ -40,6 +40,7 @@
           - serverspec
           - cocoapods
           - tw
+          - compass
 
     - name: Uninstall gems
       gem: name={{item}} user_install=false state=absent
