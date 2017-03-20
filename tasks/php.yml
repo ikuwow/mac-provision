@@ -34,7 +34,7 @@
       # After initialization you have to append .bashrc `source ~/.phpbrew/bashrc`
 
     - name: Install php {{base_php_version}}
-      shell: "phpbrew update && phpbrew install {{base_php_version}} +default"
+      shell: "phpbrew update && phpbrew install {{base_php_version}} +default+dbs"
       args:
         creates: ~/.phpbrew/php/php-{{base_php_version}}
 
