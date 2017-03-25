@@ -5,6 +5,7 @@
   gather_facts: no
   vars:
       base_php_version: "7.1.3"
+      default_standard: PSR1
 
   tasks:
 
@@ -54,11 +55,13 @@
       args:
         creates: "~/.phpbrew/bin/{{item}}"
 
+
     - name: Check phpcs default standard
-      shell: "phpcs --config-show | grep default_standard"
+      shell: "phpcs --config-show | grep 'default_standard: {{default_standard}}'"
       register: result
       changed_when: result.rc == 1
+      failed_when: result.rc not in [0, 1]
 
     - name: Set default phpcs format
-      shell: "phpcs --config-set default_standard PSR1"
+      shell: "phpcs --config-set default_standard {{default_standard}}"
       when: result.rc == 1
