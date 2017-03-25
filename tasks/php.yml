@@ -53,3 +53,12 @@
           - [composer, phpmd, phpcs]
       args:
         creates: "~/.phpbrew/bin/{{item}}"
+
+    - name: Check phpcs default standard
+      shell: "phpcs --config-show | grep default_standard"
+      register: result
+      changed_when: result.rc == 1
+
+    - name: Set default phpcs format
+      shell: "phpcs --config-set default_standard PSR1"
+      when: result.rc == 1
