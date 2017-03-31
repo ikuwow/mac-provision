@@ -59,6 +59,7 @@
           - fontforge
           - lua
           - terraform
+          - neovim/neovim/neovim
 
     - name: install head-only formulae
       homebrew: name=universal-ctags state=head
