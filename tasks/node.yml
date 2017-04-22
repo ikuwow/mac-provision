@@ -7,7 +7,10 @@
   tasks:
 
     - name: Install Basic Components
-      homebrew: name=node
+      homebrew: name={{item}}
+      with_items:
+          - node
+          - yarn
 
     - name: Install Node related packages
       npm: name={{item}} global=yes
