@@ -3,6 +3,8 @@
 - hosts: localhost # hostname
   become: no
   gather_facts: no
+  vars:
+      default_node_version: "stable"
 
   tasks:
 
@@ -14,3 +16,18 @@
       args:
         creates: ~/.nodebrew
 
+    - name: Install default version
+      shell: nodebrew install-binary {{default_node_version}}
+      args:
+        creates: ~/.nodebrew/node/v{{default_node_version}}
+
+    - name: Check current node version
+      shell: "nodebrew list | grep current: | sed 's/^current: //g'"
+      register: current_node_version
+      changed_when: current_node_version.stdout == 'none'
+
+    - name: Set default node version
+      shell: |
+          nodebrew alias default v{{default_node_version}} \
+          && nodebrew use default
+      when: current_node_version.stdout == 'none'
