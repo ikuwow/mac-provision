@@ -6,17 +6,11 @@
 
   tasks:
 
-    - name: Install Basic Components
-      homebrew: name={{item}}
-      with_items:
-          - node
-          - yarn
+    - name: Install nodebrew
+      homebrew: name=nodebrew
 
-    - name: Install Node related packages
-      npm: name={{item}} global=yes
-      with_items:
-          - jshint
-          - gulp
-          - coffee-script
-          - elasticsearch-tools
+    - name: Setup nodebrew
+      shell: nodebrew setup
+      args:
+        creates: ~/.nodebrew
 
