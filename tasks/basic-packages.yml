@@ -65,7 +65,11 @@
       homebrew: name=universal-ctags state=head
 
     - name: Install custom vim
-      homebrew: name=vim install_options=with-lua
+      homebrew:
+        name: vim
+        install_options:
+          - with-lua
+          - with-python3
 
     - name: Check compiler version
       shell: 'ls /usr/local/bin/gcc-* | grep -e "gcc\-[0-9].\?[0-9]\?$" | tail -n 1 | sed -e "s/[a-zA-Z\/\-]//g"'
