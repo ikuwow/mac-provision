@@ -8,6 +8,11 @@
 
   tasks:
 
+    - name: Install neovim module not using pyenv
+      pip:
+        executable: /usr/local/bin/pip3
+        name: neovim
+
     - name: Install basic python packages
       homebrew: name=pyenv
 
