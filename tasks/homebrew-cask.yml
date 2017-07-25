@@ -30,6 +30,7 @@
         - gitter
         - boostnote
         - cmd-eikana
+        - minikube
 
     - name: Make kubectl link
       file:
