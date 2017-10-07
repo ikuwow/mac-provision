@@ -5,5 +5,14 @@
   gather_facts: no
 
   tasks:
-    - name: Install Java
-      homebrew_cask: name=java
+    - name: Install jenv
+      homebrew: name=jenv
+
+    - name: Install javas
+      homebrew_cask: name={{item}}
+      with_items:
+        - java # oracle java 9
+        - java8 # oracle java 8
+        - java6 # apple java 6
+
+    # auto jenv add is incomplete
