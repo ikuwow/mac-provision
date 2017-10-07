@@ -18,11 +18,16 @@
     - name: Install basic python packages
       homebrew: name=pyenv
 
+    - name: "Get openssl prefix"
+      shell: "brew --prefix openssl"
+      register: brew_prefix
+      changed_when: false
+
     - name: Install Python
       shell: "pyenv install {{item}}"
       environment:
-        - CFLAGS: "-I/usr/local/opt/openssl/include"
-        - LDFLAGS: "-L/usr/local/opt/openssl/lib"
+        - CFLAGS: "-I{{brew_prefix.stdout}}/include"
+        - LDFLAGS: "-L{{brew_prefix.stdout}}/lib"
       args:
         creates: ~/.pyenv/versions/{{item}}/bin/python
       with_items: "{{python_versions}}"
