@@ -4,7 +4,9 @@
   become: no
   gather_facts: no
   vars:
-      base_python_version: "3.5.1"
+      python_versions:
+          - "2.7.13"
+          - "3.6.2"
 
   tasks:
 
@@ -17,9 +19,13 @@
       homebrew: name=pyenv
 
     - name: Install Python
-      shell: "pyenv install {{base_python_version}}"
+      shell: "pyenv install {{item}}"
+      environment:
+        - CFLAGS: "-I/usr/local/opt/openssl/include"
+        - LDFLAGS: "-L/usr/local/opt/openssl/lib"
       args:
-        creates: ~/.pyenv/versions/{{base_python_version}}/bin/python
+        creates: ~/.pyenv/versions/{{item}}/bin/python
+      with_items: "{{python_versions}}"
 
     - name: Is Python in pyenv?
       shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
@@ -27,7 +33,7 @@
       changed_when: python_is_in_pyenv.stdout != '0'
 
     - name: Switch Python version
-      shell: "pyenv global {{base_python_version}} && pyenv rehash"
+      shell: "pyenv global {{python_versions | max}} && pyenv rehash"
       when: python_is_in_pyenv.stdout != '0'
 
     - name: pyenv init
