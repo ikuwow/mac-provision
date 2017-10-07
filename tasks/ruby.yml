@@ -4,7 +4,10 @@
   become: no
   gather_facts: no
   vars:
-      base_ruby_version: "2.2.3"
+      ruby_versions:
+        - "2.2.8"
+        - "2.3.5"
+        - "2.4.2"
 
   tasks:
     - name: Install Rubys
@@ -14,9 +17,10 @@
           - rbenv
 
     - name: Install Ruby
-      shell: "rbenv install {{base_ruby_version}}"
+      shell: "rbenv install {{item}}"
       args:
-        creates: ~/.rbenv/versions/{{base_ruby_version}}/bin/ruby
+        creates: ~/.rbenv/versions/{{item}}/bin/ruby
+      with_items: "{{ruby_versions}}"
 
     - name: Is ruby in rbenv?
       shell: "which ruby | grep .rbenv/shims/ruby > /dev/null; echo $?"
@@ -24,7 +28,7 @@
       changed_when: ruby_is_in_rbenv.stdout != '0'
 
     - name: Switch Ruby version
-      shell: "rbenv global {{base_ruby_version}} && rbenv rehash"
+      shell: "rbenv global {{ruby_versions | max}} && rbenv rehash"
       when: ruby_is_in_rbenv.stdout != '0'
 
     - name: rbenv init
