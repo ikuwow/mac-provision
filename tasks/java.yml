@@ -15,4 +15,10 @@
         - java8 # oracle java 8
         - java6 # apple java 6
 
+    - name: Tap java dependency's tap
+      homebrew_tap: tap=pivotal/tap
+
+    - name: Install springboot
+      homebrew: name=springboot
+
     # auto jenv add is incomplete
