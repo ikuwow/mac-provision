@@ -3,6 +3,11 @@
 - hosts: localhost
   become: no
   gather_facts: no
+  vars:
+    java_versions:
+        - 9
+        - 1.8
+        - 1.6
 
   tasks:
     - name: Install jenv
@@ -14,6 +19,12 @@
         - java # oracle java 9
         - java8 # oracle java 8
         - java6 # apple java 6
+
+    - name: Add javas
+      shell: jenv add $(/usr/libexec/java_home -v {{item}})
+      args:
+        creates: ~/.jenv/versions/{{item}}/bin/java
+      with_items: "{{java_versions}}"
 
     - name: Tap java dependency's tap
       homebrew_tap: tap=pivotal/tap
