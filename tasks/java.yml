@@ -33,6 +33,12 @@
       with_items:
         - export
 
+    - name: Install jvm languages
+      homebrew: name={{item}}
+      with_items:
+        - scala
+        - groovy
+
     - name: Tap java dependency's tap
       homebrew_tap: tap=pivotal/tap
 
