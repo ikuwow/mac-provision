@@ -13,6 +13,7 @@
 - include: tasks/ruby.yml
 - include: tasks/python.yml
 - include: tasks/node.yml
+- include: tasks/java.yml
 - include: tasks/vagrant.yml
 - include: tasks/system-preferences.yml
 
