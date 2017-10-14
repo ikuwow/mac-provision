@@ -26,6 +26,13 @@
         creates: ~/.jenv/versions/{{item}}/bin/java
       with_items: "{{java_versions}}"
 
+    - name: Add jenv plugins
+      shell: eval "$(jenv init -)" && jenv enable-plugin {{item}}
+      register: result
+      changed_when: '"plugin already enabled" not in result.stdout'
+      with_items:
+        - export
+
     - name: Tap java dependency's tap
       homebrew_tap: tap=pivotal/tap
 
