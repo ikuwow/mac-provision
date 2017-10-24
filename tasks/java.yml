@@ -26,6 +26,17 @@
         creates: ~/.jenv/versions/{{item}}/bin/java
       with_items: "{{java_versions}}"
 
+    - name: Add java-related packages
+      homebrew: name={{item}}
+      with_items:
+        - maven
+
+    - name: Tap java dependency's tap
+      homebrew_tap: tap=pivotal/tap
+
+    - name: Install springboot
+      homebrew: name=springboot
+
     - name: Install jvm languages
       homebrew: name={{item}}
       with_items:
@@ -37,11 +48,5 @@
       changed_when: '"plugin already enabled" not in result.stdout'
       with_items:
         - groovy
+        - maven
 
-    - name: Tap java dependency's tap
-      homebrew_tap: tap=pivotal/tap
-
-    - name: Install springboot
-      homebrew: name=springboot
-
-    # auto jenv add is incomplete
