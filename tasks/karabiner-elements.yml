@@ -1,0 +1,12 @@
+---
+
+- hosts: localhost # hostname
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: Create ~/.config dir
+      file: path="~/.config" state=directory
+
+    - name: Create Karabiner-Elements symlink
+      file: src="~/Dropbox/dotconfig/karabiner" dest="~/.config/karabiner" state=link
