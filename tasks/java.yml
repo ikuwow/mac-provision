@@ -28,6 +28,7 @@
       homebrew: name={{item}}
       with_items:
         - maven
+        - tomcat
 
     - name: Tap java dependency's tap
       homebrew_tap: tap=pivotal/tap
