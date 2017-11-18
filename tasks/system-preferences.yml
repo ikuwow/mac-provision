@@ -39,9 +39,6 @@
     - name: Clash Report on Notification Center
       osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
-    - name: Change Screenshot name
-      osx_defaults: domain=com.apple.screencapture key=name value=""
-
   # Deprected:
   #     - name: Autohide Dock
   #       osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
