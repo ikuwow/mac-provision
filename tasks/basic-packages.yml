@@ -22,6 +22,7 @@
     - name: Install Basic Components
       homebrew: name={{item}}
       with_items:
+          - telnet
           - coreutils
           - ansible
           - awscli
