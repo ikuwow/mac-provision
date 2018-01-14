@@ -23,10 +23,11 @@
   register: python_is_in_pyenv
   changed_when: python_is_in_pyenv.stdout != '0'
 
+- name: pyenv init
+  shell: 'eval "$(pyenv init -)"'
+  changed_when: python_is_in_pyenv.stdout != '0'
+
 - name: Switch Python version
   shell: "pyenv global {{python_versions | max}} && pyenv rehash"
   when: python_is_in_pyenv.stdout != '0'
 
-- name: pyenv init
-  shell: 'eval "$(pyenv init -)"'
-  changed_when: python_is_in_pyenv.stdout != '0'
