@@ -9,21 +9,22 @@
       - pyenv
       - rbenv
       - jenv
+    anyenv_install_path: ~/.anyenv
 
   tasks:
 
     - name: Install anyenv
       git:
         repo: git@github.com:riywo/anyenv.git
-        dest: ~/.anyenv
+        dest: "{{anyenv_install_path}}"
 
     - name: Remove __env in brew
       homebrew: name={{item}} state=absent
       with_items: "{{envs}}"
 
     - name: Install envs
-      shell: "~/.anyenv/bin/anyenv install {{item}}"
+      shell: "{{anyenv_install_path}}/bin/anyenv install {{item}}"
       with_items: "{{envs}}"
       args:
-        creates: "~/.anyenv/envs/{{item}}"
+        creates: "{{anyenv_install_path}}/envs/{{item}}"
 
