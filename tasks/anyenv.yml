@@ -29,7 +29,7 @@
         dest: "{{anyenv_install_path}}"
 
     - name: Remove __env in brew
-      homebrew: name={{item}} state=absent
+      homebrew: name={{item}} state=absent install_options=force
       with_items: "{{envs}}"
 
     - name: Remove __env directory

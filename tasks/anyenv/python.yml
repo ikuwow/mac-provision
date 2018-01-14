@@ -9,8 +9,17 @@
   register: brew_prefix
   changed_when: false
 
+- name: Is Python in pyenv?
+  shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
+  register: python_is_in_pyenv
+  changed_when: python_is_in_pyenv.stdout != '0'
+
+- name: pyenv init
+  shell: 'eval "$({{anyenv_install_path}}/envs/pyenv/bin/pyenv init -)"'
+  changed_when: python_is_in_pyenv.stdout != '0'
+
 - name: Install Python
-  shell: "pyenv install {{item}}"
+  shell: "{{anyenv_install_path}}/envs/pyenv/bin/pyenv install {{item}}"
   environment:
     - CFLAGS: "-I{{brew_prefix.stdout}}/include"
     - LDFLAGS: "-L{{brew_prefix.stdout}}/lib"
@@ -18,16 +27,7 @@
     creates: "{{anyenv_install_path}}/envs/pyenv/versions/{{item}}/bin/python"
   with_items: "{{python_versions}}"
 
-- name: Is Python in pyenv?
-  shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
-  register: python_is_in_pyenv
-  changed_when: python_is_in_pyenv.stdout != '0'
-
-- name: pyenv init
-  shell: 'eval "$(pyenv init -)"'
-  changed_when: python_is_in_pyenv.stdout != '0'
-
 - name: Switch Python version
-  shell: "pyenv global {{python_versions | max}} && pyenv rehash"
+  shell: "{{anyenv_install_path}}/envs/pyenv/bin/pyenv global {{python_versions | max}} && {{anyenv_install_path}}/envs/pyenv/bin/pyenv rehash"
   when: python_is_in_pyenv.stdout != '0'
 

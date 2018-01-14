@@ -1,6 +1,6 @@
 ---
 - name: Install Ruby
-  shell: "rbenv install {{item}}"
+  shell: "{{anyenv_install_path}}/envs/rbenv/bin/rbenv install {{item}}"
   args:
     creates: "{{anyenv_install_path}}/envs/rbenv/versions/{{item}}/bin/ruby"
   with_items: "{{ruby_versions}}"
@@ -11,11 +11,11 @@
   changed_when: ruby_is_in_rbenv.stdout != '0'
 
 - name: Switch Ruby version
-  shell: "rbenv global {{ruby_versions | max}} && rbenv rehash"
+  shell: "{{anyenv_install_path}}/envs/rbenv/bin/rbenv global {{ruby_versions | max}} && {{anyenv_install_path}}/envs/rbenv/bin/rbenv rehash"
   when: ruby_is_in_rbenv.stdout != '0'
 
 - name: rbenv init
-  shell: 'eval "$(rbenv init -)"'
+  shell: 'eval "$({{anyenv_install_path}}/envs/rbenv/bin/rbenv init -)"'
   changed_when: ruby_is_in_rbenv.stdout != '0'
 
 - name: Install Gems
