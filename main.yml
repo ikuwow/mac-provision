@@ -5,15 +5,13 @@
   become: no
   gather_facts: no
 
-- include: tasks/dotfiles.yml
+  #- include: tasks/dotfiles.yml
 - include: tasks/basic-packages.yml
 - include: tasks/icloud-directories.yml
 - include: tasks/homebrew-cask.yml
+- include: tasks/anyenv.yml
 - include: tasks/php.yml
-- include: tasks/ruby.yml
-- include: tasks/python.yml
 - include: tasks/node.yml
-- include: tasks/java.yml
 - include: tasks/vagrant.yml
 - include: tasks/system-preferences.yml
 
