@@ -1,0 +1,32 @@
+---
+- name: Install neovim module not using pyenv
+  pip:
+    executable: /usr/local/bin/pip3
+    name: neovim
+
+- name: "Get openssl prefix"
+  shell: "brew --prefix openssl"
+  register: brew_prefix
+  changed_when: false
+
+- name: Install Python
+  shell: "pyenv install {{item}}"
+  environment:
+    - CFLAGS: "-I{{brew_prefix.stdout}}/include"
+    - LDFLAGS: "-L{{brew_prefix.stdout}}/lib"
+  args:
+    creates: "{{anyenv_install_path}}/envs/pyenv/versions/{{item}}/bin/python"
+  with_items: "{{python_versions}}"
+
+- name: Is Python in pyenv?
+  shell: "which python | grep .pyenv/shims/python > /dev/null; echo $?"
+  register: python_is_in_pyenv
+  changed_when: python_is_in_pyenv.stdout != '0'
+
+- name: Switch Python version
+  shell: "pyenv global {{python_versions | max}} && pyenv rehash"
+  when: python_is_in_pyenv.stdout != '0'
+
+- name: pyenv init
+  shell: 'eval "$(pyenv init -)"'
+  changed_when: python_is_in_pyenv.stdout != '0'
