@@ -1,0 +1,22 @@
+---
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    envs:
+      - pyenv
+      - rbenv
+      - jenv
+
+  tasks:
+
+    - name: Install anyenv
+      git:
+        repo: git@github.com:riywo/anyenv.git
+        dest: ~/.anyenv
+
+    - name: Remove __env in brew
+      homebrew: name={{item}} state=absent
+      with_items: "{{envs}}"
