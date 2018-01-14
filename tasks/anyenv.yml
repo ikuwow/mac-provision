@@ -20,3 +20,10 @@
     - name: Remove __env in brew
       homebrew: name={{item}} state=absent
       with_items: "{{envs}}"
+
+    - name: Install envs
+      shell: "~/.anyenv/bin/anyenv install {{item}}"
+      with_items: "{{envs}}"
+      args:
+        creates: "~/.anyenv/envs/{{item}}"
+
