@@ -1,0 +1,43 @@
+---
+- name: Install Ruby
+  shell: "{{anyenv_install_path}}/envs/rbenv/bin/rbenv install {{item}}"
+  args:
+    creates: "{{anyenv_install_path}}/envs/rbenv/versions/{{item}}/bin/ruby"
+  with_items: "{{ruby_versions}}"
+
+- name: Is ruby in rbenv?
+  shell: "which ruby | grep .rbenv/shims/ruby > /dev/null; echo $?"
+  register: ruby_is_in_rbenv
+  changed_when: ruby_is_in_rbenv.stdout != '0'
+
+- name: Switch Ruby version
+  shell: "{{anyenv_install_path}}/envs/rbenv/bin/rbenv global {{ruby_versions | max}} && {{anyenv_install_path}}/envs/rbenv/bin/rbenv rehash"
+  when: ruby_is_in_rbenv.stdout != '0'
+
+- name: rbenv init
+  shell: 'eval "$({{anyenv_install_path}}/envs/rbenv/bin/rbenv init -)"'
+  changed_when: ruby_is_in_rbenv.stdout != '0'
+
+- name: Install Gems
+  gem: name={{item}} user_install=false
+  # user_install=falseで~/.rbenv/...にインストールされる
+  with_items:
+      - rails
+      - bundler
+      - serverspec
+      - cocoapods
+      - tw
+      - compass
+
+- name: Uninstall gems
+  gem: name={{item}} user_install=false state=absent
+  with_items:
+      - chef
+      - chef-zero
+      - knife-solo
+      - berkshelf
+      - kitchen-vagrant
+      - test-kitchen
+      - knife-solo_data_bag
+      - i2cssh
+

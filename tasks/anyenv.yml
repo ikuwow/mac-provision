@@ -1,0 +1,47 @@
+---
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  vars:
+    envs:
+      - pyenv
+      - rbenv
+      - jenv
+    anyenv_install_path: ~/.anyenv
+    python_versions:
+      - "2.7.13"
+      - "3.6.2"
+    java_versions:
+      - 9
+      - 1.8
+    ruby_versions:
+      - "2.2.8"
+      - "2.3.5"
+      - "2.4.2"
+
+  tasks:
+
+    - name: Install anyenv
+      git:
+        repo: git@github.com:riywo/anyenv.git
+        dest: "{{anyenv_install_path}}"
+
+    - name: Remove __env in brew
+      homebrew: name={{item}} state=absent install_options=force
+      with_items: "{{envs}}"
+
+    - name: Remove __env directory
+      file: path="~/.{{item}}" state=absent
+      with_items: "{{envs}}"
+
+    - name: Install envs
+      shell: "{{anyenv_install_path}}/bin/anyenv install {{item}}"
+      with_items: "{{envs}}"
+      args:
+        creates: "{{anyenv_install_path}}/envs/{{item}}"
+
+    - include_tasks: anyenv/python.yml
+    - include_tasks: anyenv/ruby.yml
+    - include_tasks: anyenv/java.yml
