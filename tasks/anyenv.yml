@@ -9,6 +9,7 @@
       - pyenv
       - rbenv
       - jenv
+      - ndenv
     anyenv_install_path: ~/.anyenv
     python_versions:
       - "2.7.13"
@@ -20,6 +21,8 @@
       - "2.2.8"
       - "2.3.5"
       - "2.4.2"
+    node_versions:
+      - "8.9.4"
 
   tasks:
 
@@ -35,6 +38,12 @@
     - name: Remove __env directory
       file: path="~/.{{item}}" state=absent
       with_items: "{{envs}}"
+
+    - name: Remove nodebrew
+      homebrew: name=nodebrew state=absent install_options=force
+
+    - name: Remove .nodebrew directory
+      file: path="~/.nodebrew" state=absent
 
     - name: Install envs
       shell: "{{anyenv_install_path}}/bin/anyenv install {{item}}"
