@@ -39,6 +39,9 @@
     - name: Clash Report on Notification Center
       osx_defaults: domain=com.apple.CrashReporter key=UseUNC value=1
 
+    - name: Key repeat
+      osx_defaults: key=KeyRepeat type=int value=2
+
   # Deprected:
   #     - name: Autohide Dock
   #       osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
