@@ -28,6 +28,9 @@
           - awscli
           - bash
           - bash-completion
+          - docker-completion
+          - docker-compose-completion
+          - docker-machine-completion
           - cloog
           - cowsay
           - fortune
