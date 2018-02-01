@@ -50,7 +50,6 @@
           - postgresql
           - pwgen
           - sshrc
-          - thefuck
           - tmux
           - trash
           - tree
