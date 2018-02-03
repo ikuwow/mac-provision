@@ -27,3 +27,16 @@ for c in ${commands[@]}; do
     fi
 done
 
+alias ssid=$'/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk \'/ SSID/ {print substr($0, index($0, $2))}\''
+if [ $(command -v networksetup) ]; then
+    function wifireset {
+        ssid=$(ssid)
+        networksetup -setairportpower en0 off
+        echo 'Re-enabling Wi-Fi...'
+        networksetup -setairportpower en0 on
+        echo "Reconnecting ${ssid}..."
+        networksetup -setairportnetwork en0 "$ssid"
+        echo 'Done.'
+    }
+fi
+bind "set completion-ignore-case on"
