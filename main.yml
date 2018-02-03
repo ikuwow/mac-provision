@@ -5,7 +5,7 @@
   become: no
   gather_facts: no
 
-  #- include: tasks/dotfiles.yml
+- import_playbook: tasks/dotfiles.yml
 - import_playbook: tasks/basic-packages.yml
 - import_playbook: tasks/icloud-directories.yml
 - import_playbook: tasks/homebrew-cask.yml
