@@ -10,6 +10,7 @@
       - rbenv
       - jenv
       - ndenv
+      - goenv
     anyenv_install_path: ~/.anyenv
     python_versions:
       - "2.7.13"
@@ -24,6 +25,8 @@
     node_versions:
       - "8.9.4"
       - "9.4.0"
+    go_versions:
+      - "1.9.3"
 
   tasks:
 
@@ -56,3 +59,4 @@
     - include_tasks: anyenv/ruby.yml
     - include_tasks: anyenv/java.yml
     - include_tasks: anyenv/node.yml
+    - include_tasks: anyenv/go.yml
