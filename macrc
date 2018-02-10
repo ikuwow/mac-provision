@@ -31,11 +31,12 @@ alias ssid=$'/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Cur
 if [ $(command -v networksetup) ]; then
     function wifireset {
         ssid=$(ssid)
-        networksetup -setairportpower en0 off
+        interface='en0'
+        networksetup -setairportpower "$interface" off
         echo 'Re-enabling Wi-Fi...'
-        networksetup -setairportpower en0 on
+        networksetup -setairportpower "$interface" on
         echo "Reconnecting ${ssid}..."
-        networksetup -setairportnetwork en0 "$ssid"
+        networksetup -setairportnetwork "$interface" "$ssid"
         echo 'Done.'
     }
 fi
