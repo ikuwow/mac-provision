@@ -1,7 +1,7 @@
 ---
 - name: Install neovim module not using pyenv
   pip:
-    executable: /usr/local/bin/pip3
+    executable: "{{anyenv_install_path}}/envs/pyenv/shims/pip3"
     name: neovim
 
 - name: "Get openssl prefix"
