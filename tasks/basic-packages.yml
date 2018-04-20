@@ -63,6 +63,7 @@
           - lua
           - terraform
           - neovim/neovim/neovim
+          - graphviz
 
     - name: install head-only formulae
       homebrew: name=universal-ctags state=head
