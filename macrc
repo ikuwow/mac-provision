@@ -41,3 +41,5 @@ if [ $(command -v networksetup) ]; then
     }
 fi
 bind "set completion-ignore-case on"
+
+export GOPATH=$HOME/.go
