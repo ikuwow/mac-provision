@@ -1269,7 +1269,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>293 575 918 452 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>943 0 710 1027 0 0 1680 1027 </string>
+	<string>943 161 570 866 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1112 161 570 866 0 0 1680 1050 </string>
 	<key>New Bookmarks</key>
@@ -1466,7 +1466,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>100</integer>
+			<integer>80</integer>
 			<key>Command</key>
 			<string>login -fp degawaikuo</string>
 			<key>Cursor Color</key>
@@ -1603,7 +1603,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>57</integer>
+			<integer>48</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1961,7 +1961,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>80</integer>
+			<integer>100</integer>
 			<key>Command</key>
 			<string>login -fp degawaikuo</string>
 			<key>Cursor Color</key>
@@ -2098,7 +2098,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>48</integer>
+			<integer>57</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
