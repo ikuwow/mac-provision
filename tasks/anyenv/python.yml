@@ -31,3 +31,5 @@
   shell: "{{anyenv_install_path}}/envs/pyenv/bin/pyenv global {{python_versions | max}} && {{anyenv_install_path}}/envs/pyenv/bin/pyenv rehash"
   when: python_is_in_pyenv.stdout != '0'
 
+- name: Install pipenv
+  homebrew: name=pipenv
