@@ -35,8 +35,10 @@ if [ $(command -v networksetup) ]; then
         networksetup -setairportpower "$interface" off
         echo 'Re-enabling Wi-Fi...'
         networksetup -setairportpower "$interface" on
-        echo "Reconnecting ${ssid}..."
-        networksetup -setairportnetwork "$interface" "$ssid"
+        if [ "$1" != '-x' ]; then
+            echo "Reconnecting ${ssid}..."
+            networksetup -setairportnetwork "$interface" "$ssid"
+        fi
         echo 'Done.'
     }
 fi
