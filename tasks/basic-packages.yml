@@ -69,7 +69,6 @@
           - terraform
           - neovim/neovim/neovim
           - graphviz
-          - imagemagick@6
 
     - name: install head-only formulae
       homebrew: name=universal-ctags state=head
