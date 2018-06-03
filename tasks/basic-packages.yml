@@ -19,6 +19,12 @@
           - docker
           - ctags # use universal-ctags
 
+    - name: Uninstall imagemagick 7
+      homebrew: name=imagemagick@7 state=absent install_options="--force"
+
+    - name: Install imagemagick 6
+      homebrew: name=imagemagick@6
+
     - name: Install Basic Components
       homebrew: name={{item}}
       with_items:
@@ -41,7 +47,6 @@
           - go
           - highlight
           - hugo
-          - imagemagick
           - jq
           - libdvdcss # needed by handbrake
           - mysql
