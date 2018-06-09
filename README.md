@@ -34,6 +34,15 @@ $ ansible -m setup localhost
 
 Output variables can be used in playbooks.
 
+## Manual Configuration
+
+### Use bash4 as login shell
+
+```
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
+chsh -s /usr/local/bin/bash
+```
+
 ## Notes
 
 .plist of Application settings are created only after first up!
