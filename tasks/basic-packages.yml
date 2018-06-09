@@ -18,6 +18,7 @@
           - boot2docker
           - docker
           - ctags # use universal-ctags
+          - bash-completion # using bash-completion@2
 
     - name: Uninstall imagemagick 7
       homebrew: name=imagemagick@7 state=absent install_options="--force"
@@ -33,7 +34,7 @@
           - ansible
           - awscli
           - bash
-          - bash-completion
+          - bash-completion@2
           - docker-completion
           - docker-compose-completion
           - docker-machine-completion
