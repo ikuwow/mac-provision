@@ -1,5 +1,12 @@
 # vim: filetype=sh
 
+if [ $BASH_VERSINFO -le 3 ]; then
+    echo "WARNING: Your bash version is ${BASH_VERSINFO}!"
+    echo "Please use bash 4.0 ~ by these commands:"
+    echo "sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'"
+    echo "chsh -s /usr/local/bin/bash"
+fi
+
 if [ `uname` != Darwin ]; then
     return 0
 fi
