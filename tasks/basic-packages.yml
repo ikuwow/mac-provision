@@ -19,6 +19,7 @@
           - docker
           - ctags # use universal-ctags
           - bash-completion # using bash-completion@2
+          - terraform # use tfenv
 
     - name: Uninstall imagemagick 7
       homebrew: name=imagemagick@7 state=absent install_options="--force"
@@ -67,7 +68,7 @@
           - heroku
           - fontforge
           - lua
-          - terraform
+          - tfenv
           - neovim/neovim/neovim
           - graphviz
 
@@ -90,3 +91,4 @@
       file: src=/usr/local/bin/{{item}}-{{gcc_destver.stdout}} dest=/usr/local/bin/{{item}}
           state=link
       with_items: [gcc, g++]
+
