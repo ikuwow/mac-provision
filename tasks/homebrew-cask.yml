@@ -28,4 +28,9 @@
         - franz
         - gitter
         - boostnote
+    - name: Install javas
+      homebrew_cask: name={{item}}
+      with_items:
+        - java
+        - java8
 
