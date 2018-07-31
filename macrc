@@ -52,3 +52,11 @@ fi
 bind "set completion-ignore-case on"
 
 export GOPATH=$HOME/.go
+
+# Java
+if [ -e $HOME/.java-version ]; then
+    java_version=$(cat $HOME/.java-version)
+else
+    java_version=1.8
+fi
+export JAVA_HOME=$(/usr/libexec/java_home -v $java_version)
