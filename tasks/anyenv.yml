@@ -15,9 +15,6 @@
     python_versions:
       - "2.7.13"
       - "3.6.2"
-    java_versions:
-      - 9
-      - 1.8
     ruby_versions:
       - "2.2.8"
       - "2.3.5"
@@ -57,6 +54,5 @@
 
     - include_tasks: anyenv/python.yml
     - include_tasks: anyenv/ruby.yml
-    - include_tasks: anyenv/java.yml
     - include_tasks: anyenv/node.yml
     - include_tasks: anyenv/go.yml
