@@ -19,7 +19,6 @@
       homebrew_cask: name={{item}}
       with_items:
         - xquartz
-        - powershell
         - google-cloud-sdk
 
     - name: Install basics by .dmg
