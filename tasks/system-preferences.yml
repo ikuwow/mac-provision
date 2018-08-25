@@ -42,6 +42,9 @@
     - name: Key repeat
       osx_defaults: key=KeyRepeat type=int value=2
 
+    - name: Prevent .DS_STore file creation over network connections
+      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores value=true
+
   # Deprected:
   #     - name: Autohide Dock
   #       osx_defaults: domain=com.apple.dock key=autohide type=bool value=true
