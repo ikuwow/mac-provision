@@ -8,7 +8,6 @@
 - import_playbook: tasks/dotfiles.yml
 - import_playbook: tasks/basic-packages.yml
 - import_playbook: tasks/icloud-directories.yml
-- import_playbook: tasks/homebrew-cask.yml
 - import_playbook: tasks/anyenv.yml
 - import_playbook: tasks/php.yml
 - import_playbook: tasks/vagrant.yml
