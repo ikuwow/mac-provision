@@ -16,12 +16,6 @@ if [ -f ~/.brew_api_token ];then
     source ~/.brew_api_token
 fi
 
-PHPVERSION=$(php -r 'echo phpversion();');
-BREWPATH=$PATH
-BREWPATH=${BREWPATH/${HOME}\/\.pyenv\/shims:/}
-BREWPATH=${BREWPATH/${HOME}\/.phpbrew\/php\/php-${PHPVERSION}\/bin/}
-alias brew="env PATH=${BREWPATH} brew"
-
 export PGDATA=/usr/local/var/postgres
 alias postgres='postgres -D /usr/local/var/postgres'
 
