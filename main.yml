@@ -5,7 +5,6 @@
   become: no
   gather_facts: no
 
-- import_playbook: tasks/dotfiles.yml
 - import_playbook: tasks/icloud-directories.yml
 - import_playbook: tasks/system-preferences.yml
 
